@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="MercyBot.Views.Accounts.AccountFloodUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MercyBot.Views.Accounts"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:specific="clr-namespace:MercyBot.Converters.Specific"
+             xmlns:enums="clr-namespace:MercyBot.Converters.Enums"
+             xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+             mc:Ignorable="d"  
+             Height="484" 
+             Width="798"
+             FontSize="12">
+
+    <UserControl.Resources>
+        
+        <!-- Converters -->
+        <specific:BoolToStringConverter x:Key="BoolToStringConverter" />
+        <enums:ChannelsStringConverter x:Key="ChannelsStringConverter" />
+
+    </UserControl.Resources>
+    
+    <ScrollViewer Height="484">
+        <StackPanel>
+
+            <!-- Sentences -->
+            <ListView Height="220"
+                      Name="lvSentences"
+                      Margin="4"
+                      ItemsSource="{Binding Extensions.Flood.Configuration.Sentences}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="{_:Lang 420}"
+                                        Width="450"
+                                        DisplayMemberBinding="{Binding Content}" />
+                        <GridViewColumn Header="{_:Lang 421}"
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding Channel, Converter={StaticResource ChannelsStringConverter}}" />
+                        <GridViewColumn Header="{_:Lang 422}"
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding OnPlayerJoined, Converter={StaticResource BoolToStringConverter}}" />
+                        <GridViewColumn Header="{_:Lang 423}"
+                                        Width="80"
+                                        DisplayMemberBinding="{Binding OnPlayerLeft, Converter={StaticResource BoolToStringConverter}}" />
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{_:Lang 239}" Click="BtnDelete_Click">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconMaterial Margin="8 0 0 0" 
+                                                            Kind="Close" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+
+            <!-- Configuration -->
+            <GroupBox Header="{_:Lang 424}">
+                <StackPanel>
+                    <DockPanel Margin="4">
+                        <TextBlock Text="{_:Lang 425}"
+                                   VerticalAlignment="Center" />
+                        <controls:NumericUpDown Minimum="60" Maximum="300"
+                                                Value="{Binding Extensions.Flood.Configuration.SeekChannelInterval}" />
+                    </DockPanel>
+                    <DockPanel Margin="4">
+                        <TextBlock Text="{_:Lang 426}"
+                                   VerticalAlignment="Center" />
+                        <controls:NumericUpDown Minimum="120" Maximum="300"
+                                                Value="{Binding Extensions.Flood.Configuration.SalesChannelInterval}" />
+                    </DockPanel>
+                    <DockPanel Margin="4">
+                        <TextBlock Text="{_:Lang 427}"
+                                   VerticalAlignment="Center" />
+                        <controls:NumericUpDown Minimum="1" Maximum="300"
+                                                Value="{Binding Extensions.Flood.Configuration.GeneralChannelInterval}" />
+                    </DockPanel>
+                    <controls:ToggleSwitch OnLabel="{_:Lang 418}" 
+                                           OffLabel="{_:Lang 419}"
+                                           HorizontalAlignment="Right"
+                                           Name="tsActivate"
+                                           IsCheckedChanged="TsActivate_IsCheckedChanged" />
+                </StackPanel>
+            </GroupBox>
+        
+            <!-- Add a sentence -->
+            <GroupBox Header="{_:Lang 428}">
+                <StackPanel>
+                    <DockPanel Margin="4">
+                        <TextBlock Text="{_:Lang 429}" VerticalAlignment="Center" />
+                        <TextBox Name="txtSentence" />
+                    </DockPanel>
+                    <DockPanel Margin="4">
+                        <TextBlock Text="{_:Lang 430}" VerticalAlignment="Center" />
+                        <ComboBox Name="cmbChannel" 
+                                  SelectedIndex="0"
+                                  SelectionChanged="CmbChannel_SelectionChanged">
+                            <ComboBoxItem Content="{_:Lang 266}" />
+                            <ComboBoxItem Content="{_:Lang 224}" />
+                            <ComboBoxItem Content="{_:Lang 223}" />
+                            <ComboBoxItem Content="{_:Lang 388}" />
+                        </ComboBox>
+                    </DockPanel>
+                    <StackPanel Name="spPrivateChannelOptions" Visibility="Collapsed">
+                        <CheckBox Content="{_:Lang 432}"
+                                  Name="cbOnPlayerJoined"
+                                  IsChecked="True"
+                                  Margin="4" />
+                        <CheckBox Content="{_:Lang 433}"
+                                  Name="cbOnPlayerLeft"
+                                  IsChecked="True"
+                                  Margin="4" />
+                    </StackPanel>
+                    <Button Name="btnAddSentence" 
+                            Click="BtnAddSentence_Click"
+                            HorizontalAlignment="Right" 
+                            Width="100" Height="32"
+                            Background="{StaticResource AccentColorBrush}"
+                            Margin="0 6 4 4">
+                        <StackPanel Orientation="Horizontal" >
+                            <iconPacks:PackIconMaterial Kind="Plus" />
+                            <TextBlock Margin="10 0 0 0" Text="{_:Lang 260}" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Informations -->
+            <GroupBox Header="{_:Lang 434}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" 
+                                Margin="0 4"
+                                HorizontalAlignment="Center" >
+                        <iconPacks:PackIconMaterial Width="18" 
+                                                    Height="18"
+                                                    Kind="Information"
+                                                    VerticalAlignment="Center" />
+                        <TextBlock Margin="4 0 0 0" 
+                                   Text="{_:Lang 435}"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                    <TextBlock Text="{_:Lang 436}"
+                                   FontWeight="Bold"
+                                   FontSize="13"
+                                   Margin="4" />
+                    <TextBlock Text="{_:Lang 437}"
+                                   Margin="4" />
+                    <TextBlock Text="{_:Lang 438}"
+                                   Margin="4" />
+                    <TextBlock Text="{_:Lang 439}"
+                                   FontWeight="Bold"
+                                   FontSize="13"
+                                   Margin="4" />
+                    <TextBlock Text="{_:Lang 440}"
+                                   Margin="4" />
+                    <TextBlock Text="{_:Lang 441}"
+                                   Margin="4" />
+                </StackPanel>
+            </GroupBox>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

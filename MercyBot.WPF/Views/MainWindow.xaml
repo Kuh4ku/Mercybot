@@ -1,0 +1,269 @@
+﻿<Controls:MetroWindow
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    x:Class="MercyBot.WPF.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:enumConverters="clr-namespace:MercyBot.Converters.Enums"
+    xmlns:accounts="clr-namespace:MercyBot.Views.Accounts"
+    xmlns:otherConverters="clr-namespace:MercyBot.Converters.Others"
+    xmlns:groupsNs="clr-namespace:MercyBot.Core.Groups"
+    xmlns:accountsNs="clr-namespace:MercyBot.Core.Accounts"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:behaviors="clr-namespace:MercyBot.Behaviors"
+    xmlns:specific="clr-namespace:MercyBot.Converters.Specific"
+    xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+    mc:Ignorable="d"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    BorderBrush="{StaticResource AccentColorBrush}"
+    ResizeMode="CanMinimize"
+    WindowStartupLocation="CenterScreen"
+    ShowMaxRestoreButton="False"
+    Title="{Binding Server.Name, Mode=OneWay, StringFormat=Mercy Bot Touch - {0}}" 
+    Height="720" Width="1060" FontSize="14" 
+    ContentRendered="MetroWindow_ContentRendered">
+
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="Colors"  Source="../Theme/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Converters -->
+            <enumConverters:ServerConnectionStatesConverter x:Key="ServerConnectionStatesConverter" />
+            <enumConverters:AccountStatesImageConverter x:Key="AccountStatesImageConverter" />
+            <enumConverters:AccountStatesStringConverter x:Key="AccountStatesStringConverter" />
+            <otherConverters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <specific:SubscriptionTextConverter x:Key="SubscriptionTextConverter" />
+
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+
+    <StackPanel>
+        
+        <!-- Header -->
+        <Grid Margin="30 0 40 8" Height="70" Background="{DynamicResource BaseBlackBrush}">
+            <Grid.Effect>
+                <DropShadowEffect Color="#ff403f3f" BlurRadius="10" ShadowDepth="4" Direction="270" />
+            </Grid.Effect>
+            
+            <!-- Header's grid definitions -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- State hack -->
+            <Grid Grid.ColumnSpan="2" Margin="0,17,-30,15"  Width="30" Height="30" HorizontalAlignment="Right">
+                <Ellipse Fill="{DynamicResource BaseBlackBrush}" />
+                <Image Width="18" 
+                       Height="18"
+                       Source="{Binding Path=Server.State, Mode=OneWay, Converter={StaticResource ServerConnectionStatesConverter}}" />
+            </Grid>
+            
+            <!-- First column -->
+            <Ellipse Grid.Column="0" Width="50" Height="50" Stroke="#ff797979" StrokeThickness="2">
+                <Ellipse.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Opacity="0.6" />
+                </Ellipse.Effect>
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding Server.AvatarUrl, IsAsync=True}" />
+                </Ellipse.Fill>
+            </Ellipse>
+            
+            <!-- Second column -->
+            <DockPanel Width="900" 
+                       VerticalAlignment="Center" 
+                       Grid.Column="1"
+                       Height="70">
+
+                <!-- Buttons -->
+                <Button Name="BtnAccountsManager" 
+                        Click="BtnAccountsManager_Click"
+                        Width="44" 
+                        Height="44" 
+                        ToolTip="{_:Lang 464}"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="6" Opacity="0.6" Color="Black"/>
+                    </Button.Effect>
+                    <iconPacks:PackIconMaterial Width="18" Height="18" Kind="AccountMultiple" Foreground="White" />
+                </Button>
+                <Button Name="BtnQuickActions" 
+                        Click="BtnQuickActions_Click"
+                        Width="44"
+                        Height="44" 
+                        ToolTip="{_:Lang 575}"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="6" Opacity="0.6" Color="Black"/>
+                    </Button.Effect>
+                    <iconPacks:PackIconMaterial Width="18" Height="18" Kind="Flash" Foreground="White" />
+                </Button>
+                <Button Name="BtnPlanner" 
+                        Click="BtnPlanner_Click"
+                        Width="44"
+                        Height="44" 
+                        ToolTip="{_:Lang 575}"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="6" Opacity="0.6" Color="Black"/>
+                    </Button.Effect>
+                    <iconPacks:PackIconMaterial Width="18" Height="18" Kind="Timer" Foreground="White" />
+                </Button>
+                <Button Name="BtnOptions" 
+                        Click="BtnOptions_Click"
+                        Width="44"
+                        Height="44" 
+                        ToolTip="Options"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="6" Opacity="0.6" Color="Black"/>
+                    </Button.Effect>
+                    <iconPacks:PackIconMaterial Width="18" Height="18" Kind="Settings" Foreground="White" />
+                </Button>
+                <Button Name="BtnMinimize" 
+                        Width="44" 
+                        Height="44" 
+                        ToolTip="{_:Lang 465}"
+                        Click="BtnMinimize_OnClick"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="6" Opacity="0.6" Color="Black"/>
+                    </Button.Effect>
+                    <iconPacks:PackIconMaterial Width="18" Height="18" Kind="ArrowDownBold" />
+                </Button>
+
+                <!-- Informations -->
+                <Grid VerticalAlignment="Center" Margin="0 0 4 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Margin="0 -4 0 0"
+                               HorizontalAlignment="Right"
+                               Text="{Binding Server.TouchEndDate, Converter={StaticResource SubscriptionTextConverter}}" />
+                    <TextBlock Grid.Row="1" 
+                               Margin="0 6 0 0"
+                               HorizontalAlignment="Right">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{_:Lang 476}">
+                                <Binding Path="Server.Statistics.AccountsConnected" />
+                                <Binding Path="Server.Statistics.BotsConnected" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+
+            </DockPanel>
+        </Grid>
+
+        <!-- Content -->
+        <StackPanel Orientation="Horizontal" Margin="0 11 0 0" Height="600">
+            
+            <!-- Accounts headers -->
+            <TreeView Margin="10 0 10 10"
+                     Height="584"
+                     Width="220"
+                     Background="{DynamicResource BaseBlackBrush}"
+                     ItemsSource="{Binding Entities}">
+                <i:Interaction.Behaviors>
+                    <behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedAccount, Mode=TwoWay}" />
+                </i:Interaction.Behaviors>
+                <TreeView.Effect>
+                    <DropShadowEffect BlurRadius="14"
+                                      ShadowDepth="0"
+                                      Color="{DynamicResource ShadowColor}" />
+                </TreeView.Effect>
+
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type groupsNs:Group}" ItemsSource="{Binding Members}">
+                        <Grid Height="40">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="22" />
+                                <RowDefinition Height="15" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="116" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0"
+                                   Grid.Column="0" 
+                                   Grid.RowSpan="2" 
+                                   Width="18" 
+                                   Height="18" 
+                                   Source="{Binding Path=Chief.State, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource AccountStatesImageConverter}}" />
+                            <TextBlock Grid.Row="0" 
+                                       Grid.Column="1" 
+                                       Text="{Binding Chief.AccountConfig.Username}" 
+                                       Margin="4 2 0 0" />
+                            <TextBlock Grid.Row="1" 
+                                       Grid.Column="1" 
+                                       Text="{Binding Path=Chief.State,
+                                                      Mode=OneWay,
+                                                      Converter={StaticResource AccountStatesStringConverter}}"
+                                       Margin="4 0 0 0" 
+                                       FontSize="10" />
+                        </Grid>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type accountsNs:Account}">
+                        <Grid Height="40">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="22" />
+                                <RowDefinition Height="15" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="116" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0"
+                                   Grid.Column="0" 
+                                   Grid.RowSpan="2" 
+                                   Width="18" 
+                                   Height="18" 
+                                   Source="{Binding Path=State, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource AccountStatesImageConverter}}" />
+                            <TextBlock Grid.Row="0" 
+                                       Grid.Column="1" 
+                                       Text="{Binding AccountConfig.Username}" 
+                                       Margin="4 2 0 0" />
+                            <TextBlock Grid.Row="1" 
+                                       Grid.Column="1" 
+                                       Text="{Binding Path=State,
+                                                      Mode=OneWay,
+                                                      Converter={StaticResource AccountStatesStringConverter}}"
+                                       Margin="4 0 0 0" 
+                                       FontSize="10" />
+                        </Grid>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+
+            <!-- Account UserControl -->
+            <Grid Margin="4 0 0 10"
+                  Height="584"
+                  Width="804">
+                <Border BorderThickness="292" BorderBrush="{DynamicResource BaseBlackBrush}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="14"
+                                          Color="{DynamicResource ShadowColor}"
+                                          ShadowDepth="0" />
+                    </Border.Effect>
+                </Border>
+                <accounts:AccountUc DataContext="{Binding SelectedAccount}"
+                                    Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}"/>
+            </Grid>
+            
+        </StackPanel>
+
+    </StackPanel>
+</Controls:MetroWindow>

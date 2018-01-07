@@ -1,0 +1,677 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{10A01529-59FA-4A41-828E-17B3C4D4DD04}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MercyBot</RootNamespace>
+    <AssemblyName>Mercy Bot</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo128_3Pk_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>FBDB5D5378480D50EF851DE2BD805D89EA89A97B</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>MercyBot.WPF_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AntiRecaptcha">
+      <HintPath>..\AntiRecaptcha\bin\Debug\AntiRecaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="ColorPickerWPF, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ColorPickerWPF.1.0.7\lib\net452\ColorPickerWPF.dll</HintPath>
+    </Reference>
+    <Reference Include="CrashReporter.NET, Version=1.5.2.0, Culture=neutral, PublicKeyToken=986591a91592b7e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrashReporter.NET.Official.1.5.2\lib\net452\CrashReporter.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.Material, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.Material.1.9.1\lib\net46\MahApps.Metro.IconPacks.Material.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="MoonSharp.Interpreter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=921e73ce94aa17f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MoonSharp.2.0.0.0\lib\net40-client\MoonSharp.Interpreter.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Management">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WriteableBitmapEx.Wpf, Version=1.5.0.0, Culture=neutral, PublicKeyToken=50375ca6144f1c69, processorArchitecture=MSIL">
+      <HintPath>..\packages\WriteableBitmapEx.1.5.0.0\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Behaviors\BindableSelectedItemBehavior.cs" />
+    <Compile Include="Configurations\Language\LangExtension.cs" />
+    <Compile Include="Configurations\Language\LanguageManager.cs" />
+    <Compile Include="Converters\Enums\AccountStatesImageConverter.cs" />
+    <Compile Include="Converters\Enums\AccountStatesStringConverter.cs" />
+    <Compile Include="Converters\Enums\BidirectionalEnumAndNumberConverter.cs" />
+    <Compile Include="Converters\Enums\ChannelsStringConverter.cs" />
+    <Compile Include="Converters\Enums\ObjectEntryPositionStringConverter.cs" />
+    <Compile Include="Converters\Enums\PlayerStatusEnumImageConverter.cs" />
+    <Compile Include="Converters\Enums\ServerConnectionStatesConverter.cs" />
+    <Compile Include="Converters\Enums\SpellTargetsStringConverter.cs" />
+    <Compile Include="Converters\Null\NullImageConverter.cs" />
+    <Compile Include="Converters\Null\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\Specific\BoolToStringConverter.cs" />
+    <Compile Include="Converters\Specific\BoostableStatsToIndexConverter.cs" />
+    <Compile Include="Converters\Specific\EquipementActionConverter.cs" />
+    <Compile Include="Converters\Specific\IsSubscribedEnabilityConverter.cs" />
+    <Compile Include="Converters\Specific\LanguagesToIndexConverter.cs" />
+    <Compile Include="Converters\Specific\SubscriptionEndDateConverter.cs" />
+    <Compile Include="Converters\Specific\SubscriptionTextConverter.cs" />
+    <Compile Include="Converters\Utility\BooleanAndConverter.cs" />
+    <Compile Include="Converters\Utility\InverseBooleanConverter.cs" />
+    <Compile Include="Core\Accounts\Account.cs" />
+    <Compile Include="Configurations\Accounts\CharacterCreation.cs" />
+    <Compile Include="Core\Accounts\Configurations\Configuration.cs" />
+    <Compile Include="Core\Accounts\Configurations\SpellToBoostEntry.cs" />
+    <Compile Include="Core\Accounts\Extensions\Bid\BidConfiguration.cs" />
+    <Compile Include="Core\Accounts\Extensions\Bid\BidExtension.cs" />
+    <Compile Include="Core\Accounts\Extensions\Bid\ObjectToSellEntry.cs" />
+    <Compile Include="Core\Accounts\Extensions\CharacterCreator\CharacterCreatorExtension.cs" />
+    <Compile Include="Core\Accounts\Extensions\CharacterCreator\TutorialHelper.cs" />
+    <Compile Include="Core\Accounts\Extensions\Exchanges\RoleplayExtension.cs" />
+    <Compile Include="Core\Accounts\Extensions\ExtensionsContainer.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\Enums\BlockSpectatorScenarios.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\Enums\FightSpeeds.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\Enums\FightStartPlacements.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\Enums\FightTactics.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\Enums\SpellResistances.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\Enums\SpellTargets.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\FightsConfiguration.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Configuration\Spell.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\FightsExtension.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\SpellCastingResults.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\SpellsManager.cs" />
+    <Compile Include="Core\Accounts\Extensions\Fights\Utility\FightsUtility.cs" />
+    <Compile Include="Core\Accounts\Extensions\Flood\FloodConfiguration.cs" />
+    <Compile Include="Core\Accounts\Extensions\Flood\FloodExtension.cs" />
+    <Compile Include="Core\Accounts\Extensions\Flood\FloodSentence.cs" />
+    <Compile Include="Core\Accounts\FramesData.cs" />
+    <Compile Include="Core\Accounts\IClearable.cs" />
+    <Compile Include="Core\Accounts\InGame\Bid\BidGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\CharacterGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\CharacterStats.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\Inventory\InventoryGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\Inventory\InventoryHelper.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\Inventory\ObjectEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\Jobs\JobEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\Jobs\JobsGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\Jobs\Skills\CollectSkillEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\Mount\MountGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Character\SpellEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Chat\ChatGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Exchange\ExchangeGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Fights\Fighters\FighterEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Fights\Fighters\FightMonsterEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Fights\Fighters\FightPlayerEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Fights\FightGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Fights\SpellInabilityReasons.cs" />
+    <Compile Include="Core\Accounts\InGame\Game.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Gathers\GatherResults.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Gathers\GathersManager.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Interactives\InteractivesManager.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\ManagersGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Movements\MapChangeDirections.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Movements\MovementRequestResults.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Movements\MovementsManager.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Teleportables\Teleportables.cs" />
+    <Compile Include="Core\Accounts\InGame\Managers\Teleportables\TeleportablesManager.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Entities\MonsterEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Entities\MonstersGroupEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Entities\MovableEntity.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Entities\NpcEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Entities\PlayerEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Interactives\ElementInCellEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Interactives\InteractiveElementEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Interactives\Skills\SkillEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\Interactives\StatedElementEntry.cs" />
+    <Compile Include="Core\Accounts\InGame\Map\MapGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Npcs\NpcsGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Server\ServerGame.cs" />
+    <Compile Include="Core\Accounts\InGame\Storage\StorageGame.cs" />
+    <Compile Include="Core\Accounts\Network\NetworkManager.cs" />
+    <Compile Include="Core\Accounts\Network\NetworkMessage.cs" />
+    <Compile Include="Core\Accounts\Network\RegisteredMessage.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Bid\BuyItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Bid\EditItemInSalePriceAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Bid\RemoveItemInSaleAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Bid\SellItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Bid\StartBuyingAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Bid\StartSellingAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Exchange\ExchangePutAllItemsAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Exchange\ExchangePutItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Exchange\ExchangePutKamasAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Exchange\ExchangeRemoveItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Exchange\ExchangeRemoveKamasAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Exchange\SendReadyAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Exchange\StartExchangeAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Fight\FightAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Gather\GatherAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Global\DelayAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Global\JoinFriendAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Global\LeaveDialogAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Inventory\DeleteItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Inventory\DropItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Inventory\EquipItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Inventory\UnEquipItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Inventory\UseItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\ChangeMapAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\MoveToCellAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\SaveZaapAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\UseAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\UseByIdAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\UseLockedHouseAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\UseLockedStorageAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\UseTeleportableAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Map\WaitMapChangeAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Mount\SetRatioAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Mount\ToggleRidingAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Npcs\NpcAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Npcs\NpcBankAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Npcs\ReplyAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\ScriptAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StorageGetAllItemsAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StorageGetAutoRegenStoreAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StorageGetExistingItemsAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StorageGetItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StorageGetKamasAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StoragePutAllItemsAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StoragePutExistingItemsAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StoragePutItemAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Actions\Storage\StoragePutKamasAction.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\API.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\BidAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\CharacterAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\ExchangeAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\FightAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\GatherAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\InventoryAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\JobsAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\MapAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\MountAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\NpcAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Api\StorageAPI.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\ChangeMapFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\CustomFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\DoorFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\FightFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\GatherFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\IFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\NpcBankFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\Flags\PhenixFlag.cs" />
+    <Compile Include="Core\Accounts\Scripts\FunctionTypes.cs" />
+    <Compile Include="Core\Accounts\Scripts\Managers\ActionsManager.cs" />
+    <Compile Include="Core\Accounts\Scripts\Managers\LuaScriptManager.cs" />
+    <Compile Include="Core\Accounts\Scripts\ScriptsManager.cs" />
+    <Compile Include="Core\Accounts\Statistics\ObjectObtainedEntry.cs" />
+    <Compile Include="Core\Accounts\Statistics\StatisticsManager.cs" />
+    <Compile Include="Core\Commands\Attributes.cs" />
+    <Compile Include="Core\Commands\CommandsHandler.cs" />
+    <Compile Include="Core\Commands\CommandsManager.cs" />
+    <Compile Include="Core\Commands\Handlers\ChatCommands.cs" />
+    <Compile Include="Core\Commands\Handlers\HelpCommands.cs" />
+    <Compile Include="Core\Enums\AccountStates.cs" />
+    <Compile Include="Core\Enums\BoostableStats.cs" />
+    <Compile Include="Core\Enums\ChannelColors.cs" />
+    <Compile Include="Core\Enums\NetworkPhases.cs" />
+    <Compile Include="Core\Extensions\LuaExtensions.cs" />
+    <Compile Include="Core\Extensions\ToFriendlyStringExtensions.cs" />
+    <Compile Include="Core\Frames\Common\QueueFrame.cs" />
+    <Compile Include="Core\Frames\Common\SecurityFrame.cs" />
+    <Compile Include="Core\Frames\Connection\CharacterSelectionFrame.cs" />
+    <Compile Include="Core\Frames\Connection\IdentificationFrame.cs" />
+    <Compile Include="Core\Frames\Connection\ServerSelectionFrame.cs" />
+    <Compile Include="Core\Frames\FramesManager.cs" />
+    <Compile Include="Core\Frames\Game\AchievementsFrame.cs" />
+    <Compile Include="Core\Frames\Game\BidFrame.cs" />
+    <Compile Include="Core\Frames\Game\CharacterFrame.cs" />
+    <Compile Include="Core\Frames\Game\ChatFrame.cs" />
+    <Compile Include="Core\Frames\Game\ExchangeFrame.cs" />
+    <Compile Include="Core\Frames\Game\FightFrame.cs" />
+    <Compile Include="Core\Frames\Game\InventoryFrame.cs" />
+    <Compile Include="Core\Frames\Game\MapFrame.cs" />
+    <Compile Include="Core\Frames\Game\NpcsFrame.cs" />
+    <Compile Include="Core\Frames\Game\QuestsFrame.cs" />
+    <Compile Include="Core\Frames\Game\StorageFrame.cs" />
+    <Compile Include="Core\Groups\Group.cs" />
+    <Compile Include="Core\Groups\Grouping.cs" />
+    <Compile Include="Core\IEntity.cs" />
+    <Compile Include="Core\Logs\Logger.cs" />
+    <Compile Include="Core\Logs\LogMessage.cs" />
+    <Compile Include="Core\Logs\LogTypes.cs" />
+    <Compile Include="Core\Network\PrimusWebSocket.cs" />
+    <Compile Include="Core\Pathfinding\CellData.cs" />
+    <Compile Include="Core\Pathfinding\CellPath.cs" />
+    <Compile Include="Core\Pathfinding\Dofus1Line.cs" />
+    <Compile Include="Core\Pathfinding\Fights\FightPath.cs" />
+    <Compile Include="Core\Pathfinding\Fights\FightsPathfinder.cs" />
+    <Compile Include="Core\Pathfinding\Fights\MoveNode.cs" />
+    <Compile Include="Core\Pathfinding\Fights\PathNode.cs" />
+    <Compile Include="Core\Pathfinding\MapPoint.cs" />
+    <Compile Include="Core\Pathfinding\PathDuration.cs" />
+    <Compile Include="Core\Pathfinding\Pathfinder.cs" />
+    <Compile Include="Core\Pathfinding\Shapes\SpellShapes.cs" />
+    <Compile Include="Core\Pathfinding\Shapes\Zones\Shaper.cs" />
+    <Compile Include="Core\Pathfinding\Shapes\Zones\ZonesUtility.cs" />
+    <Compile Include="MercyBotMain.cs" />
+    <Compile Include="Server\FunctionalitiesManager.cs" />
+    <Compile Include="Server\ServerManager.cs" />
+    <Compile Include="Server\ServerStatistics.cs" />
+    <Compile Include="Updates\Updater.cs" />
+    <Compile Include="Updates\UpdaterExtension.cs" />
+    <Compile Include="Configurations\Accounts\AccountConfiguration.cs" />
+    <Compile Include="Configurations\GlobalConfiguration.cs" />
+    <Compile Include="Configurations\Language\Languages.cs" />
+    <Compile Include="Utility\DofusTouch\BreedsUtility.cs" />
+    <Compile Include="Utility\DofusTouch\DTConstants.cs" />
+    <Compile Include="Utility\DofusTouch\FlashKeyGenerator.cs" />
+    <Compile Include="Utility\Extensions\OtherExtensions.cs" />
+    <Compile Include="Utility\Extensions\SpecialExtensions.cs" />
+    <Compile Include="Utility\Extensions\StringsExtensions.cs" />
+    <Compile Include="Utility\Randomize.cs" />
+    <Compile Include="Utility\Security\AESEncryption.cs" />
+    <Compile Include="Utility\Security\RecaptchaHandler.cs" />
+    <Compile Include="Utility\TimerWrapper.cs" />
+    <Compile Include="Views\AccountsManagerWindow.xaml.cs">
+      <DependentUpon>AccountsManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountBidUc.xaml.cs">
+      <DependentUpon>AccountBidUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountCharacterUc.xaml.cs">
+      <DependentUpon>AccountCharacterUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountConsoleUc.xaml.cs">
+      <DependentUpon>AccountConsoleUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountFightsUc.xaml.cs">
+      <DependentUpon>AccountFightsUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountFloodUc.xaml.cs">
+      <DependentUpon>AccountFloodUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountInventoryUc.xaml.cs">
+      <DependentUpon>AccountInventoryUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountMapViewerUc.xaml.cs">
+      <DependentUpon>AccountMapViewerUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountOptionsUc.xaml.cs">
+      <DependentUpon>AccountOptionsUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountStatisticsUc.xaml.cs">
+      <DependentUpon>AccountStatisticsUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountUc.xaml.cs">
+      <DependentUpon>AccountUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlannerWindow.xaml.cs">
+      <DependentUpon>PlannerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuickActionsWindow.xaml.cs">
+      <DependentUpon>QuickActionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Theme\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AccountsManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountBidUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountCharacterUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountConsoleUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountFightsUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountFloodUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountInventoryUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountMapViewerUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountOptionsUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountStatisticsUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\MapViewer\MapViewerUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Accounts\MapViewer\MapViewerUc.xaml.cs">
+      <DependentUpon>MapViewerUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\MapViewer\MapViewerCell.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\Accounts\AccountUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlannerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QuickActionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="MercyBot.WPF_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo128_3Pk_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MercyBot.Protocol\MercyBot.Protocol.csproj">
+      <Project>{7D1C5B65-0D64-46DB-8F9B-E1B57DAF3F10}</Project>
+      <Name>MercyBot.Protocol</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\circle_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\circle_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\circle_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\scriptsApiHelper.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MapViewerLegend.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\heart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\initiative.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\intelligence.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\movement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\prospecting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\range.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\starYellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\strength.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\summon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\vitality.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\wisdom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\agility.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\chance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\circle-cross-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Clock-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\No-entry24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Emerald-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ruby-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\france32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\usa32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\female16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\male16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\portugal32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\7521.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\21000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\12367.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

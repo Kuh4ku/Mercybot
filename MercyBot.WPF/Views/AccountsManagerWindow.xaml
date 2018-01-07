@@ -1,0 +1,669 @@
+﻿<Controls:MetroWindow
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    x:Class="MercyBot.Views.AccountsManagerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+    xmlns:others="clr-namespace:MercyBot.Converters.Others"
+    xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+    mc:Ignorable="d"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    BorderBrush="{StaticResource AccentColorBrush}"
+    ShowMaxRestoreButton="False"
+    WindowStartupLocation="CenterOwner"
+    ResizeMode="CanMinimize"
+    Title="{_:Lang 237}" 
+    Height="542" 
+    Width="760" >
+
+    <Window.Resources>
+
+        <!-- Converters -->
+        <others:NullImageConverter x:Key="NullImageConverter" />
+
+    </Window.Resources>
+
+    <TabControl Controls:TabControlHelper.Underlined="TabPanel"
+                TabStripPlacement="Left">
+        
+        <!-- Connect accounts -->
+        <TabItem Controls:ControlsHelper.HeaderFontSize="16" Width="213">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Height="22" Margin="0 2 0 0" Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="AccountMultiple" />
+                        <TextBlock VerticalAlignment="Center" FontSize="15" Margin="10 0 0 0" Text="{_:Lang 458}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+            <DockPanel LastChildFill="False">
+                <GroupBox Header="{_:Lang 390}" 
+                          Name="GbGroup"
+                          Visibility="Collapsed"
+                          DockPanel.Dock="Bottom">
+                    <StackPanel>
+                        <DockPanel Margin="4">
+                            <TextBlock Text="{_:Lang 391}" VerticalAlignment="Center" />
+                            <ComboBox Margin="4 0 0 0" 
+                                      Name="CmbChief"
+                                      ItemsSource="{Binding SelectedItems, ElementName=LvAccounts}"
+                                      DisplayMemberPath="Username"/>
+                        </DockPanel>
+                        <Button HorizontalAlignment="Right" 
+                                Width="100" Height="30"
+                                Margin="4"
+                                Background="{StaticResource AccentColorBrush}"
+                                Click="BtnConnectGroup_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="AccountMultiple" />
+                                <TextBlock Margin="10 0 0 0" Text="{_:Lang 238}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+                <ListView Margin="4 6 4 4"
+                          x:Name="LvAccounts"
+                          MouseDoubleClick="LvAccounts_MouseDoubleClick"
+                          SelectionChanged="LvAccounts_SelectionChanged"
+                          ItemsSource="{Binding AccountsList}">
+                    <ListView.ContextMenu>
+                        <ContextMenu Width="220">
+                            <MenuItem Header="{_:Lang 238}" 
+                                  Click="BtnConnectAccounts_Click">
+                                <MenuItem.Icon>
+                                    <iconPacks:PackIconMaterial Margin="8 0 0 0" Kind="ArrowLeftBoldCircle" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Connecter au serveur">
+                                <MenuItem.Items>
+                                    <MenuItem Header="-" />
+                                    <MenuItem Header="Terra Cogita" />
+                                    <MenuItem Header="Herdegrize" />
+                                    <MenuItem Header="Oshimo" />
+                                    <MenuItem Header="Dodge" />
+                                    <MenuItem Header="Brutas" />
+                                    <MenuItem Header="Grandapan" />
+                                </MenuItem.Items>
+                            </MenuItem>
+                            <MenuItem Header="{_:Lang 239}" Click="BtnDeleteAccounts_Click">
+                                <MenuItem.Icon>
+                                    <iconPacks:PackIconMaterial Margin="8 0 0 0" Kind="Delete" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="160" DisplayMemberBinding="{Binding Username}">
+                                <Border BorderThickness="0 0 0 1" BorderBrush="White" >
+                                    <TextBlock FontSize="11" Width="140" Text="{_:Lang 240}"/>
+                                </Border>
+                            </GridViewColumn>
+                            <GridViewColumn Width="110" DisplayMemberBinding="{Binding Server}">
+                                <Border BorderThickness="0 0 0 1" BorderBrush="White" >
+                                    <TextBlock FontSize="11" Width="90" Text="{_:Lang 241}"/>
+                                </Border>
+                            </GridViewColumn>
+                            <GridViewColumn Width="130" DisplayMemberBinding="{Binding Character}">
+                                <Border BorderThickness="0 0 0 1" BorderBrush="White" >
+                                    <TextBlock FontSize="11" Width="110" Text="{_:Lang 242}"/>
+                                </Border>
+                            </GridViewColumn>
+                            <GridViewColumn Width="110" DisplayMemberBinding="{Binding Nickname}">
+                                <Border BorderThickness="0 0 0 1" BorderBrush="White" >
+                                    <TextBlock FontSize="11" Width="110" Text="{_:Lang 243}"/>
+                                </Border>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </DockPanel>
+        </TabItem>
+        
+        <!-- Add account -->
+        <TabItem Controls:ControlsHelper.HeaderFontSize="16" Width="213">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Height="22" Margin="0 2 0 0" Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="AccountMultiplePlus" />
+                        <TextBlock VerticalAlignment="Center" FontSize="15" Margin="10 0 0 0" Text="{_:Lang 459}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+            
+            <StackPanel>
+                <!-- Add an account -->
+                <GroupBox Header="Ajouter un compte">
+                    <StackPanel Orientation="Vertical">
+                        <TextBox Margin="0 0 0 10"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.Watermark="{_:Lang 244}" 
+                             Name="TxtUsername"/>
+                        <PasswordBox Margin="0 0 0 10"
+                                 Controls:TextBoxHelper.ClearTextButton="True"
+                                 Controls:TextBoxHelper.Watermark="{_:Lang 245}"
+                                 Style="{StaticResource Win8MetroPasswordBox}"
+                                 FontSize="13" 
+                                 Name="TxtPassword" />
+                        <ComboBox Margin="0 0 0 10"
+                              Controls:TextBoxHelper.Watermark="{_:Lang 246}"
+                              SelectedIndex="0"
+                              Name="CmbServer">
+                            <ComboBoxItem Content="-" />
+                            <ComboBoxItem Content="Terra Cogita" />
+                            <ComboBoxItem Content="Herdegrize" />
+                            <ComboBoxItem Content="Oshimo" />
+                            <ComboBoxItem Content="Dodge" />
+                            <ComboBoxItem Content="Brutas" />
+                            <ComboBoxItem Content="Grandapan" />
+                        </ComboBox>
+                        <TextBox Margin="0 0 0 10"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.Watermark="{_:Lang 247}"
+                             Name="TxtCharacter"/>
+                        <TextBox Margin="0 0 0 8"
+                             Controls:TextBoxHelper.ClearTextButton="True"
+                             Controls:TextBoxHelper.Watermark="{_:Lang 248}"
+                             Name="TxtNickname"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Name="BtnAddAccount" 
+                                Width="96" Height="32"
+                                Background="{StaticResource AccentColorBrush}"
+                                Click="BtnAddAccount_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial Kind="Plus" />
+                                    <TextBlock Margin="10 0 0 0" Text="{_:Lang 260}" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- Import acounts -->
+                <GroupBox Header="Importer des comptes" Height="236">
+                    <TabControl Controls:TabControlHelper.Underlined="TabPanel">
+                        <!-- From a file -->
+                        <TabItem>
+                            <TabItem.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Height="20" Margin="0 2 0 0" Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="FileDocument" />
+                                        <TextBlock VerticalAlignment="Center" 
+                                                   FontSize="15" 
+                                                   Margin="10 0 0 0" 
+                                                   Text="{_:Lang 544}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </TabItem.HeaderTemplate>
+
+                            <StackPanel Margin="4 0" VerticalAlignment="Center">
+                                <DockPanel Margin="4">
+                                    <TextBlock Text="{_:Lang 546}" VerticalAlignment="Center" />
+                                    <TextBox Name="TxtSeparator" 
+                                             Margin="4 0"
+                                             TextChanged="TxtSeparator_OnTextChanged" />
+                                </DockPanel>
+                                <TextBlock Name="TxtSeparatorPreview" 
+                                           HorizontalAlignment="Right"
+                                           Margin="8 0" />
+                                <StackPanel Margin="4">
+                                    <TextBlock Text="{_:Lang 547}" Margin="0 0 0 4" />
+                                    <DockPanel>
+                                        <TextBox Name="TxtFilePath" Width="430" />
+                                        <Button Content="..." Margin="4 0 0 0" Click="BtnSelectFilePath_OnClick" />
+                                    </DockPanel>
+                                </StackPanel>
+                                <Button Name="BtnImportAccounts" 
+                                        Width="90" Height="32"
+                                        HorizontalAlignment="Right"
+                                        Margin="4 8 4 0"
+                                        Click="BtnImportAccounts_OnClick"
+                                        Background="{StaticResource AccentColorBrush}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterial Kind="FileImport" />
+                                        <TextBlock Margin="10 0 0 0" Text="{_:Lang 492}" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </TabItem>
+
+                        <!-- Incrementing -->
+                        <TabItem>
+                            <TabItem.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Height="20" Margin="0 2 0 0" Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="ChevronDoubleUp" />
+                                        <TextBlock VerticalAlignment="Center" FontSize="15" Margin="10 0 0 0" 
+                                   Text="{_:Lang 545}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </TabItem.HeaderTemplate>
+
+                            <StackPanel Margin="4 0" VerticalAlignment="Center">
+                                <TextBox Margin="4"
+                                         Controls:TextBoxHelper.ClearTextButton="True"
+                                         Controls:TextBoxHelper.Watermark="{_:Lang 244}" 
+                                         Name="TxtUsernameIncr"
+                                         TextChanged="TxtUsernameIncr_OnTextChanged" />
+                                <PasswordBox Margin="4"
+                                             Controls:TextBoxHelper.ClearTextButton="True"
+                                             Controls:TextBoxHelper.Watermark="{_:Lang 245}"
+                                             Style="{StaticResource Win8MetroPasswordBox}"
+                                             Name="TxtPasswordIncr" />
+                                <DockPanel Margin="4">
+                                    <TextBlock Text="{_:Lang 549}" VerticalAlignment="Center" />
+                                    <Controls:NumericUpDown Name="NudStartIncr"
+                                            Minimum="0" 
+                                            Value="0" 
+                                            Margin="4 0"
+                                            ValueChanged="NudIncr_OnValueChanged"
+                                            Width="144" />
+                                    <TextBlock Text="{_:Lang 550}" VerticalAlignment="Center" />
+                                    <Controls:NumericUpDown Name="NudEndIncr"
+                                                            Minimum="1" 
+                                                            Value="10" 
+                                                            Margin="4 0 0 0"
+                                                            ValueChanged="NudIncr_OnValueChanged" />
+                                </DockPanel>
+                                <TextBlock Name="TxtIncrPreview" Margin="4 2 4 6" HorizontalAlignment="Right" />
+                                <Button Name="BtnImportAccountsIncr" 
+                                        Width="90" Height="32"
+                                        HorizontalAlignment="Right"
+                                        Margin="4 0 4 0"
+                                        Click="BtnImportAccountsIncr_OnClick"
+                                        Background="{StaticResource AccentColorBrush}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterial Kind="FileImport" />
+                                        <TextBlock Margin="10 0 0 0" Text="{_:Lang 492}" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                </GroupBox>
+            </StackPanel>
+        </TabItem>
+        
+        <!-- Characters creator -->
+        <TabItem Controls:ControlsHelper.HeaderFontSize="16" Width="213">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Height="22" Margin="0 2 0 0" Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="AccountPlus" />
+                        <TextBlock VerticalAlignment="Center" FontSize="15" 
+                                   Margin="10 0 0 0" Text="{_:Lang 500}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+
+            <StackPanel Orientation="Horizontal" Margin="4">
+                <!-- Accounts list -->
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="BtnSelectAll" 
+                                Click="BtnSelectAll_OnClick"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Tag="0"
+                                ToolTip="{_:Lang 502}">
+                            <iconPacks:PackIconMaterial Width="12" Height="12" Kind="SelectAll" />
+                        </Button>
+                        <Button Name="BtnUnselectAll" 
+                                Click="BtnUnselectAll_OnClick"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Tag="0"
+                                ToolTip="{_:Lang 503}">
+                            <iconPacks:PackIconMaterial Width="12" Height="12" Kind="SelectOff" />
+                        </Button>
+                    </StackPanel>
+                    <ListBox ItemsSource="{Binding AccountsList}" 
+                             Name="LbAccounts"
+                             SelectionMode="Multiple"
+                             Width="150" Height="472"
+                             BorderThickness="0.6">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Username}"
+                                  Margin="-1 1 0 0"
+                                  IsChecked="{Binding IsSelected, 
+                                                      RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+
+                <!-- Character options -->
+                <StackPanel VerticalAlignment="Center">
+                    <GroupBox Margin="4 0 4 4" Width="376">
+                        <GroupBox.Header>
+                            <CheckBox Name="CbCreateCharacter" 
+                              Content="{_:Lang 504}" />
+                        </GroupBox.Header>
+                        <StackPanel>
+
+                            <!-- Name -->
+                            <DockPanel Margin="4">
+                                <TextBlock Text="Nom: " VerticalAlignment="Center" />
+                                <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                                 Controls:TextBoxHelper.Watermark="{_:Lang 505}" 
+                                 Name="TxtName"/>
+                            </DockPanel>
+
+                            <!-- Server -->
+                            <DockPanel Margin="4">
+                                <TextBlock Text="{_:Lang 506}" VerticalAlignment="Center" />
+                                <ComboBox SelectedIndex="0"
+                                          Name="CmbServerCC">
+                                    <ComboBoxItem Content="Terra Cogita" />
+                                    <ComboBoxItem Content="Herdegrize" />
+                                    <ComboBoxItem Content="Oshimo" />
+                                    <ComboBoxItem Content="Dodge" />
+                                    <ComboBoxItem Content="Brutas" />
+                                    <ComboBoxItem Content="Grandapan" />
+                                </ComboBox>
+                            </DockPanel>
+
+                            <!-- Race -->
+                            <DockPanel Margin="4">
+                                <TextBlock Text="Race: " VerticalAlignment="Center" />
+                                <CheckBox Name="CbRandomBreed" 
+                                  Content="{_:Lang 507}"
+                                  Margin="4 0 0 0"
+                                  DockPanel.Dock="Right"/>
+                                <ComboBox Name="CmbRace" 
+                                  SelectionChanged="CmbRace_OnSelectionChanged"
+                                  DisplayMemberPath="ShortNameId" />
+                            </DockPanel>
+
+                            <!-- Sex -->
+                            <DockPanel Margin="4">
+                                <TextBlock Text="Sexe: " VerticalAlignment="Center" />
+                                <CheckBox Name="CbRandomSex" 
+                                  Content="{_:Lang 507}"
+                                  Margin="4 0 0 0"
+                                  DockPanel.Dock="Right"/>
+                                <ComboBox Name="CmbSex" SelectedIndex="0" SelectionChanged="CmbSex_OnSelectionChanged">
+                                    <ComboBoxItem>
+                                        <DockPanel>
+                                            <Image Source="/Mercy Bot;component/Resources/male16.png" />
+                                            <TextBlock Text="{_:Lang 508}" />
+                                        </DockPanel>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        <DockPanel>
+                                            <Image Source="/Mercy Bot;component/Resources/female16.png" />
+                                            <TextBlock Text="{_:Lang 509}" />
+                                        </DockPanel>
+                                    </ComboBoxItem>
+                                </ComboBox>
+                            </DockPanel>
+
+                            <!-- Head -->
+                            <DockPanel Margin="4">
+                                <TextBlock Text="Tête: " VerticalAlignment="Center" />
+                                <CheckBox Name="CbRandomHead" 
+                                          Content="{_:Lang 507}"
+                                          Margin="4 0 0 0"
+                                          DockPanel.Dock="Right"/>
+                                <ComboBox Name="CmbHead">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Width="40"
+                                                   Source="{Binding Path=., 
+                                                                Mode=OneWay,
+                                                                IsAsync=True, 
+                                                                Converter={StaticResource NullImageConverter}}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DockPanel>
+
+                            <!-- Colors -->
+                            <StackPanel Margin="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Rectangle Name="RectColor1" Margin="0 4 4 4"
+                                           Width="32" Height="32"
+                                           MouseLeftButtonUp="ColorRects_OnMouseLeftButtonUp" />
+                                <Rectangle Name="RectColor4" Margin="4"
+                                           Width="32" Height="32"
+                                           MouseLeftButtonUp="ColorRects_OnMouseLeftButtonUp" />
+                                <Rectangle Name="RectColor2" Margin="0 4 4 4"
+                                           Width="32" Height="32"
+                                           MouseLeftButtonUp="ColorRects_OnMouseLeftButtonUp" />
+                                <Rectangle Name="RectColor5" Margin="4"
+                                           Width="32" Height="32"
+                                           MouseLeftButtonUp="ColorRects_OnMouseLeftButtonUp" />
+                                <Rectangle Name="RectColor3" Margin="0 4 4 4"
+                                           Width="32" Height="32"
+                                           MouseLeftButtonUp="ColorRects_OnMouseLeftButtonUp" />
+                                <Button Name="BtnRefreshColors" 
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Click="BtnRefreshColors_OnClick"
+                                        ToolTip="Réinitialiser les couleurs">
+                                    <iconPacks:PackIconMaterial Width="12" Height="12" Kind="Refresh" />
+                                </Button>
+                            </StackPanel>
+                            
+                            <!-- Configurations -->
+                            <GroupBox Header="{_:Lang 510}"
+                                      Height="108">
+                                <StackPanel>
+                                    <DockPanel Margin="4">
+                                        <TextBlock Text="{_:Lang 511}" VerticalAlignment="Center" />
+                                        <ComboBox Name="CmbParameters" />
+                                    </DockPanel>
+                                    <DockPanel Margin="4">
+                                        <TextBlock Text="{_:Lang 512}" VerticalAlignment="Center" />
+                                        <ComboBox Name="CmbFightsConfigurations" />
+                                    </DockPanel>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <CheckBox Content="{_:Lang 513}"
+                                      Name="CmbCompleteTutorial"
+                                      Checked="CmbCompleteTutorial_OnChecked"
+                                      Margin="4" />
+
+                        </StackPanel>
+                    </GroupBox>
+
+                    <DockPanel HorizontalAlignment="Right">
+                        <Button Width="104" Height="32"
+                        Name="BtnSave"
+                        Click="BtnSave_OnClick"
+                        HorizontalAlignment="Right"
+                        Background="{StaticResource AccentColorBrush}"
+                        Margin="4 4 2 0">
+                            <StackPanel Orientation="Horizontal" >
+                                <iconPacks:PackIconMaterial Kind="ContentSave" />
+                                <TextBlock Margin="10 0 0 0" Text="{_:Lang 362}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Width="160" Height="32"
+                        Name="BtnSaveAndConnect"
+                        Click="BtnSaveAndConnect_OnClick"
+                        HorizontalAlignment="Right"
+                        Background="{StaticResource AccentColorBrush}"
+                        Margin="4 4 4 0">
+                            <StackPanel Orientation="Horizontal" >
+                                <iconPacks:PackIconMaterial Kind="ContentSave" />
+                                <TextBlock Margin="10 0 0 0" Text="{_:Lang 514}" />
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+
+        <!-- Configurations copier -->
+        <TabItem Controls:ControlsHelper.HeaderFontSize="16" Width="213">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Height="22" Margin="0 2 0 0" Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="AccountSwitch" />
+                        <TextBlock VerticalAlignment="Center" FontSize="15" 
+                                   Margin="10 0 0 0" Text="{_:Lang 558}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+
+            <StackPanel Visibility="Hidden">
+                <StackPanel Orientation="Horizontal" 
+                            Margin="0 8"
+                            HorizontalAlignment="Center" >
+                    <iconPacks:PackIconMaterial Width="18" 
+                                                Height="18"
+                                                Kind="Information"
+                                                VerticalAlignment="Center" />
+                    <TextBlock Margin="4 0 0 0" 
+                               Text="Veuillez ne pas copier des configurations entre des personnages de race différente."
+                               VerticalAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="4" VerticalAlignment="Top">
+                    <!-- From -->
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Click="BtnSelectAll_OnClick"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Tag="1"
+                                    ToolTip="{_:Lang 502}">
+                                <iconPacks:PackIconMaterial Width="12" Height="12" Kind="SelectAll" />
+                            </Button>
+                            <Button Click="BtnUnselectAll_OnClick"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Tag="1"
+                                    ToolTip="{_:Lang 503}">
+                                <iconPacks:PackIconMaterial Width="12" Height="12" Kind="SelectOff" />
+                            </Button>
+                        </StackPanel>
+                        <ListBox ItemsSource="{Binding AccountsList}" 
+                                 Name="LbAccountsCopier"
+                                 SelectionMode="Multiple"
+                                 Width="160" Height="440"
+                                 BorderThickness="0.6">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox Content="{Binding Username}"
+                                              Margin="-1 1 0 0"
+                                              IsChecked="{Binding IsSelected, 
+                                                      RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+
+                    <!-- To -->
+                    <GroupBox Header="{_:Lang 510}" Margin="10 26 0 0"
+                              Height="150" Width="356"
+                              VerticalAlignment="Top">
+                        <StackPanel>
+                            <DockPanel Margin="4">
+                                <TextBlock Text="{_:Lang 511}" VerticalAlignment="Center" />
+                                <ComboBox Name="CmbParametersCopier" />
+                            </DockPanel>
+                            <DockPanel Margin="4">
+                                <TextBlock Text="{_:Lang 512}" VerticalAlignment="Center" />
+                                <ComboBox Name="CmbFightsConfigurationsCopier" />
+                            </DockPanel>
+                            <Button Width="120" Height="32"
+                                    Background="{StaticResource AccentColorBrush}"
+                                    Click="BtnCopy_Click"
+                                    HorizontalAlignment="Right"
+                                    Margin="4 6 4 4">
+                                <StackPanel Orientation="Horizontal" >
+                                    <iconPacks:PackIconMaterial Kind="ContentSave" />
+                                    <TextBlock Margin="10 0 0 0" Text="{_:Lang 570}" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+
+            </StackPanel>
+        </TabItem>
+
+        <!-- Proxies -->
+        <TabItem Controls:ControlsHelper.HeaderFontSize="16" Width="213">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Height="22" Margin="0 2 0 0" Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="AccountSettings" />
+                        <TextBlock VerticalAlignment="Center" FontSize="15" 
+                                   Margin="10 0 0 0" Text="Proxies" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+
+            <DockPanel>
+                <!-- Accounts list -->
+                <ListBox x:Name="LbAccountsListProxy"
+                         ItemsSource="{Binding Accounts}"  
+                         DisplayMemberPath="Username"
+                         Height="500"
+                         Width="140" />
+                
+                <!-- Proxy informations -->
+                <StackPanel Margin="4">
+                    <DockPanel Margin="4">
+                        <TextBlock Text="{_:Lang 358}" VerticalAlignment="Center" Margin="0 0 2 0"  />
+                        <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                                 Controls:TextBoxHelper.Watermark="{_:Lang 359}"
+                                 Name="TxtProxyIp"
+                                 Width="180"
+                                 Text="{Binding ElementName=LbAccountsListProxy,
+                                                Path=SelectedItem.Proxy.Ip, 
+                                                Mode=OneWay}" />
+                        <TextBlock Text="{_:Lang 360}" VerticalAlignment="Center" Margin="6 0 2 0" />
+                        <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                                 Controls:TextBoxHelper.Watermark="8080"
+                                 Name="TxtProxyPort"
+                                 MaxLength="5"
+                                 Text="{Binding ElementName=LbAccountsListProxy,
+                                                Path=SelectedItem.Proxy.Port, 
+                                                Mode=OneWay}" />
+                    </DockPanel>
+                    <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                                Controls:TextBoxHelper.Watermark="{_:Lang 470}"
+                                Name="TxtProxyUsername"
+                                Text="{Binding ElementName=LbAccountsListProxy,
+                                               Path=SelectedItem.Proxy.Username, 
+                                               Mode=OneWay}"
+                                Margin="4" />
+                    <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                                Controls:TextBoxHelper.Watermark="{_:Lang 471}"
+                                Name="TxtProxyPassword"
+                                Text="{Binding ElementName=LbAccountsListProxy,
+                                               Path=SelectedItem.Proxy.Password, 
+                                               Mode=OneWay}"
+                                Margin="4" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Width="130" Height="32"
+                                Content="{_:Lang 361}"
+                                Click="BtnTestProxy_Click"
+                                Margin="0 6 4 4" />
+                        <Button Width="120" Height="32"
+                                Name="BtnSaveProxy"
+                                Background="{StaticResource AccentColorBrush}"
+                                Click="BtnSaveProxy_Click"
+                                Margin="4 6 4 4">
+                            <StackPanel Orientation="Horizontal" >
+                                <iconPacks:PackIconMaterial Kind="ContentSave" />
+                                <TextBlock Margin="10 0 0 0" Text="{_:Lang 362}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+            
+        </TabItem>
+
+    </TabControl>
+</Controls:MetroWindow>

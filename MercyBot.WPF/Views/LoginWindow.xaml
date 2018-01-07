@@ -1,0 +1,61 @@
+﻿<Controls:MetroWindow
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        x:Class="MercyBot.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+        mc:Ignorable="d"
+        Title="{_:Lang 460}"
+        ResizeMode="CanMinimize"
+        ShowMaxRestoreButton="False"
+        Height="300" Width="400"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        BorderBrush="{StaticResource AccentColorBrush}"
+        FontSize="12">
+
+
+    <StackPanel>
+        <StackPanel Name="spAlert" 
+                    Background="#cd5d5d" 
+                    Visibility="Hidden"
+                    Width="380" 
+                    Margin="0 10 0 0">
+            <TextBlock Name="tbAlert"
+                       TextWrapping="Wrap"
+                       Foreground="White"
+                       Margin="10 8 10 10"/>
+        </StackPanel>
+        <StackPanel Width="300" Margin="0 20 0 0">
+            <TextBox Margin="0 0 0 10"
+                 Controls:TextBoxHelper.ClearTextButton="True"
+                 Controls:TextBoxHelper.Watermark="{_:Lang 244}" 
+                 KeyDown="UsernameOrPassword_KeyDown"
+                 Name="txtUsername"/>
+            <PasswordBox Margin="0 0 0 10"
+                     Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="{_:Lang 245}"
+                     KeyDown="UsernameOrPassword_KeyDown"
+                     Style="{StaticResource Win8MetroPasswordBox}"
+                     FontSize="13" 
+                     Name="txtPassword"/>
+            <CheckBox Content="{_:Lang 396}"
+                  Name="cbRememberUsername" />
+            <Button HorizontalAlignment="Right" 
+                Name="btnConnect"
+                Margin="0 20 0 0"
+                Width="120" Height="32"
+                Background="{StaticResource AccentColorBrush}"
+                Click="BtnConnect_Click">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="Check" />
+                    <TextBlock Margin="10 0 0 0" Text="{_:Lang 397}" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+    
+</Controls:MetroWindow>

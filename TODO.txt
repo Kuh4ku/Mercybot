@@ -1,0 +1,7 @@
+Change all urls used directly to constants.
+
+[ NOT SURE OF THIS ]
+sometimes account blocks at IdentificationSuccessMessage
+someties it seems like ProcessSpell gets executed 2 times
+
+ObjectGroundAddedMessage

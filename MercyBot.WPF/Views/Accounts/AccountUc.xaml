@@ -1,0 +1,430 @@
+﻿<UserControl x:Class="MercyBot.Views.Accounts.AccountUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:MercyBot.Views.Accounts"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:utility="clr-namespace:MercyBot.Converters.Utility"
+             xmlns:specific="clr-namespace:MercyBot.Converters.Specific"
+             xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" 
+             d:DesignWidth="300" 
+             FontSize="10"
+             Height="584"
+             Width="804"
+             Background="{DynamicResource BaseBlackBrush}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!-- Theming -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="Colors" Source="../../Theme/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Styling -->
+            <Style x:Key="TabItemLowerFontSize" BasedOn="{StaticResource MetroTabItem}" TargetType="TabItem">
+                <Setter Property="mah:ControlsHelper.HeaderFontSize" Value="14" />
+            </Style>
+            
+            <!-- Converters -->
+            <BooleanToVisibilityConverter x:Key="boolToVis" />
+            <utility:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <utility:BooleanAndConverter x:Key="BooleanAndConverter" />
+            <specific:SubscriptionEndDateConverter x:Key="SubscriptionEndDateConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="34" />
+                <RowDefinition Height="514" />
+                <RowDefinition Height="36" />
+            </Grid.RowDefinitions>
+            
+            <!-- Menu -->
+            <Menu Padding="4 0" VerticalAlignment="Center" Grid.Row="0" FontSize="11">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel HorizontalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem HorizontalAlignment="Left" Click="ConnectDisconnect_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="PowerPlug" Width="8" />
+                    </MenuItem.Icon>
+                    <MenuItem.Header>
+                        <TextBlock Margin="-6 0 0 0" Text="{_:Lang 337}" />
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem HorizontalAlignment="Left" 
+                          Width="24" 
+                          ToolTip="{_:Lang 8}"
+                          Click="Remove_Click">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="CloseCircle" Width="14" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem HorizontalAlignment="Right" Header="{Binding Path=SubscriptionEndDate, Converter={StaticResource SubscriptionEndDateConverter}}">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="PackageVariant" 
+                                                    Margin="0 0 -6 0"
+                                                    Width="14" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem HorizontalAlignment="Left" Click="LoadScript_Click">
+                    <MenuItem.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanAndConverter}">
+                            <Binding Path="Game.Character.IsSelected" />
+                            <Binding Path="Scripts.Enabled" Converter="{StaticResource InverseBooleanConverter}" />
+                            <Binding Path="IsGroupChief" />
+                        </MultiBinding>
+                    </MenuItem.IsEnabled>
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Script" Width="14" />
+                    </MenuItem.Icon>
+                    <MenuItem.Header>
+                        <TextBlock Margin="-6 0 0 0" Text="{_:Lang 338}"  />
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem HorizontalAlignment="Left">
+                    <MenuItem.Header>
+                        <TextBlock Margin="-6 0 0 0" 
+                                   Text="{Binding Scripts.CurrentScriptName}" />
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem ToolTip="{_:Lang 3}"
+                          Click="StartScript_Click"
+                          HorizontalAlignment="Left" 
+                          Width="20">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Play" Width="9" />
+                    </MenuItem.Icon>
+                    <MenuItem.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanAndConverter}">
+                            <Binding Path="Game.Character.IsSelected" />
+                            <Binding Path="Scripts.Enabled" Converter="{StaticResource InverseBooleanConverter}" />
+                            <Binding Path="IsGroupChief" />
+                        </MultiBinding>
+                    </MenuItem.IsEnabled>
+                </MenuItem>
+                <MenuItem ToolTip="{_:Lang 4}"
+                          Click="StopScript_Click"
+                          HorizontalAlignment="Left"
+                          Width="20">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="Stop" Width="10" />
+                    </MenuItem.Icon>
+                    <MenuItem.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanAndConverter}">
+                            <Binding Path="Game.Character.IsSelected" />
+                            <Binding Path="Scripts.Enabled" />
+                            <Binding Path="IsGroupChief" />
+                        </MultiBinding>
+                    </MenuItem.IsEnabled>
+                </MenuItem>
+                <MenuItem HorizontalAlignment="Right">
+                    <MenuItem.Header>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}({1}) [{2}]">
+                                    <Binding Path="Game.Map.Area" />
+                                    <Binding Path="Game.Map.SubArea" />
+                                    <Binding Path="Game.Map.CurrentPosition" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </MenuItem.Header>
+                </MenuItem>
+            </Menu>
+
+            <!-- Content -->
+            <TabControl Grid.Row="1" 
+                        Name="tcMain"
+                        Controls:TabControlHelper.Underlined="TabPanel">
+                
+                <!-- Console -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Header="WindowMaximize">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="WindowMaximize" VerticalAlignment="Center" />
+                                <TextBlock Text="Console" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+                    <local:AccountConsoleUc DataContext="{Binding}" />
+                </TabItem>
+
+                <!-- Character -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Account" VerticalAlignment="Center" />
+                                <TextBlock Text="{_:Lang 107}" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+                    
+                    <local:AccountCharacterUc DataContext="{Binding}"
+                                              Visibility="{Binding Path=Game.Character.IsSelected,
+                                                                   Converter={StaticResource boolToVis}}" />
+                </TabItem>
+                
+                <!-- Inventory -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Briefcase" VerticalAlignment="Center" />
+                                <TextBlock Text="{_:Lang 113}" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+                    
+                    <local:AccountInventoryUc DataContext="{Binding}"
+                                              Visibility="{Binding Path=Game.Character.IsSelected,
+                                                                   Converter={StaticResource boolToVis}}" />
+                </TabItem>
+
+                <!-- Map -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Map" VerticalAlignment="Center" />
+                                <TextBlock Text="Map" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+                    
+                    <local:AccountMapViewerUc DataContext="{Binding}"
+                                              Visibility="{Binding Path=Game.Character.IsSelected,
+                                                                   Converter={StaticResource boolToVis}}" />
+                </TabItem>
+                
+                <!-- Flood -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Bullhorn" VerticalAlignment="Center" />
+                                <TextBlock Text="Flood" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+
+                    <TextBlock Text="Vous ne pouvez pas voir ce contenu sans abonnement."
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="16"/>
+                </TabItem>
+
+                <!-- Fights -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Sword" VerticalAlignment="Center" />
+                                <TextBlock Text="{_:Lang 472}" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+                    
+                    <local:AccountFightsUc DataContext="{Binding}"
+                                           Visibility="{Binding Path=Game.Character.IsSelected,
+                                                                   Converter={StaticResource boolToVis}}" />
+                </TabItem>
+                
+                <!-- Bid -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Tag" VerticalAlignment="Center" />
+                                <TextBlock Text="{_:Lang 102}" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+
+                    <TextBlock Text="{_:Lang 406}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="16"/>
+                </TabItem>
+                
+                <!-- Parameters -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Wrench" VerticalAlignment="Center" />
+                                <TextBlock Text="{_:Lang 474}" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+
+                    <local:AccountOptionsUc DataContext="{Binding}"
+                                           Visibility="{Binding Path=Game.Character.IsSelected,
+                                                                Converter={StaticResource boolToVis}}" />
+                </TabItem>
+
+                <!-- Statistics -->
+                <TabItem Style="{StaticResource TabItemLowerFontSize}"
+                         Visibility="{Binding Path=Game.Character.IsSelected,
+                                              Converter={StaticResource boolToVis}}">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ChartPie" VerticalAlignment="Center" />
+                                <TextBlock Text="{_:Lang 375}" Margin="4 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
+
+                    <TextBlock Text="{_:Lang 406}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="16"/>
+                </TabItem>
+
+            </TabControl>
+            
+            <!-- Status bar -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                
+                <!-- Health points -->
+                <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                    <iconPacks:PackIconMaterial Kind="HeartPulse"
+                                                Foreground="Red"
+                                                VerticalAlignment="Center"
+                                                Width="22"
+                                                Height="22" />
+                    <Grid Width="140" Height="22" Margin="6 0 0 0">
+                        <mah:MetroProgressBar Maximum="{Binding Game.Character.Stats.MaxLifePoints}"
+                                              Value="{Binding Game.Character.Stats.LifePoints, Mode=OneWay}"
+                                              Height="20" />
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontSize="12">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}/{1} ({2}%)">
+                                    <Binding Path="Game.Character.Stats.LifePoints" />
+                                    <Binding Path="Game.Character.Stats.MaxLifePoints" />
+                                    <Binding Path="Game.Character.Stats.LifePercent" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+                
+                <!-- Energy points -->
+                <StackPanel Orientation="Horizontal" Margin="2 0 0 0">
+                    <iconPacks:PackIconMaterial Kind="Flash"
+                                                Foreground="Yellow"
+                                                VerticalAlignment="Center"
+                                                Width="22"
+                                                Height="22" />
+                    <Grid Width="140" Height="22" Margin="2 0 0 0">
+                        <mah:MetroProgressBar Maximum="{Binding Game.Character.Stats.MaxEnergyPoints}"
+                                              Value="{Binding Game.Character.Stats.EnergyPoints, Mode=OneWay}"
+                                              Height="20" />
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontSize="12">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}/{1} ({2}%)">
+                                    <Binding Path="Game.Character.Stats.EnergyPoints" />
+                                    <Binding Path="Game.Character.Stats.MaxEnergyPoints" />
+                                    <Binding Path="Game.Character.Stats.EnergyPercent" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Weight -->
+                <StackPanel Orientation="Horizontal" Margin="8 0 0 0">
+                    <iconPacks:PackIconMaterial Kind="ScaleBalance"
+                                                Foreground="#877665"
+                                                VerticalAlignment="Center"
+                                                Width="22"
+                                                Height="22" />
+                    <Grid Width="140" Height="22" Margin="6 0 0 0">
+                        <mah:MetroProgressBar Maximum="{Binding Game.Character.Inventory.MaxWeight}"
+                                              Value="{Binding Game.Character.Inventory.Weight, Mode=OneWay}"
+                                              Height="20" />
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" FontSize="12">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}/{1} ({2}%)">
+                                    <Binding Path="Game.Character.Inventory.Weight" />
+                                    <Binding Path="Game.Character.Inventory.MaxWeight" />
+                                    <Binding Path="Game.Character.Inventory.WeightPercent" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Experience -->
+                <StackPanel Orientation="Horizontal" Margin="8 0 0 0">
+                    <iconPacks:PackIconMaterial Kind="Seal"
+                                                Foreground="#80aef7"
+                                                VerticalAlignment="Center"
+                                                Width="22"
+                                                Height="22" />
+                    <Grid Width="140" Height="22" Margin="6 0 0 0">
+                        <mah:MetroProgressBar Value="{Binding Game.Character.Stats.ExperiencePercent, Mode=OneWay}"
+                                              Height="20" />
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   FontSize="12">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} ({1}%)">
+                                    <Binding Path="Game.Character.Level" />
+                                    <Binding Path="Game.Character.Stats.ExperiencePercent" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+                
+                <!-- Kamas -->
+                <StackPanel Orientation="Horizontal" Margin="8 0 0 0">
+                    <iconPacks:PackIconMaterial Kind="Coin"
+                                                Foreground="Orange"
+                                                VerticalAlignment="Center"
+                                                Width="22"
+                                                Height="22" />
+                    <TextBlock Margin="4 0 0 0" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" 
+                               FontSize="14"
+                               Text="{Binding Game.Character.Inventory.Kamas}" />
+                </StackPanel>
+
+            </StackPanel>
+            
+        </Grid>
+    </StackPanel>
+
+</UserControl>

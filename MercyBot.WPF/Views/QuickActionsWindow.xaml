@@ -1,0 +1,84 @@
+﻿<controls:MetroWindow x:Class="MercyBot.Views.QuickActionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MercyBot.Views"
+        xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        BorderBrush="{StaticResource AccentColorBrush}"
+        ShowMaxRestoreButton="False"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanMinimize"
+        Title="{_:Lang 574}"
+        Height="500" Width="500">
+
+    <StackPanel Orientation="Horizontal" Margin="8 2 8 4">
+        
+        <!-- Accounts list -->
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Name="BtnSelectAll" 
+                        Click="BtnSelectAll_OnClick"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Tag="0"
+                        ToolTip="{_:Lang 502}">
+                    <iconPacks:PackIconMaterial Width="12" Height="12" Kind="SelectAll" />
+                </Button>
+                <Button Name="BtnUnselectAll" 
+                        Click="BtnUnselectAll_OnClick"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Tag="0"
+                        ToolTip="{_:Lang 503}">
+                    <iconPacks:PackIconMaterial Width="12" Height="12" Kind="SelectOff" />
+                </Button>
+            </StackPanel>
+            <ListBox ItemsSource="{Binding ConnectedAccounts}" 
+                     Name="LbAccounts"
+                     SelectionMode="Multiple"
+                     Width="150" Height="434"
+                     BorderThickness="0.6">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding AccountConfig.Username}"
+                                  Margin="-1 1 0 0"
+                                  IsChecked="{Binding IsSelected, 
+                                                      RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <GroupBox Header="Actions" Width="329">
+            <StackPanel>
+                <Button Margin="4" 
+                        Height="32" 
+                        Content="{_:Lang 576}"
+                        Click="BtnConnecAllAccounts_OnClick" />
+                <Button Margin="4" 
+                        Height="32" 
+                        Content="{_:Lang 577}"
+                        Click="BtnDisconnecAllAccounts_OnClick"  />
+                <Button Margin="4" 
+                        Height="32" 
+                        Content="{_:Lang 578}"
+                        Click="BtnLoadScriptOnAllAccounts_OnClick"  />
+                <Button Margin="4" 
+                        Height="32" 
+                        Content="{_:Lang 579}"
+                        Click="BtnStartScriptOnAllAccounts_OnClick"  />
+                <Button Margin="4" 
+                        Height="32" 
+                        Content="{_:Lang 580}"
+                        Click="BtnStopScriptOnAllAccounts_OnClick"  />
+            </StackPanel>
+        </GroupBox>
+        
+    </StackPanel>
+
+</controls:MetroWindow>

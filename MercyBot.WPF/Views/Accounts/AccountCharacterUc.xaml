@@ -1,0 +1,339 @@
+﻿<UserControl x:Class="MercyBot.Views.Accounts.AccountCharacterUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:others="clr-namespace:MercyBot.Converters.Others"
+             xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+             mc:Ignorable="d" 
+             Height="484"  
+             Width="798">
+
+    <UserControl.Resources>
+        <!-- Styling -->
+        <Style x:Key="TabItemLowerFontSize" BasedOn="{StaticResource MetroTabItem}" TargetType="TabItem">
+            <Setter Property="mah:ControlsHelper.HeaderFontSize" Value="15" />
+        </Style>
+        
+        <!-- Converters -->
+        <others:NullImageConverter x:Key="NulImageConverter" />
+    </UserControl.Resources>
+
+    <TabControl Controls:TabControlHelper.Underlined="TabPanel">
+        
+        <!-- Characteristics -->
+        <TabItem Style="{StaticResource TabItemLowerFontSize}">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Margin="-4 2 0 0" Kind="YinYang" />
+                        <TextBlock Margin="2 0 0 0" Text="{_:Lang 251}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="492" />
+                </Grid.ColumnDefinitions>
+
+                <Border BorderBrush="Gray" 
+                        BorderThickness="0.1" 
+                        Height="400"
+                        Width="250"
+                        Grid.Column="0">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                                Height="390"
+                                Margin="0 20 0 0">
+                    <TextBlock Text="{Binding Game.Character.Name}"
+                               HorizontalAlignment="Center"
+                               FontSize="24"
+                               FontWeight="DemiBold" />
+                    <TextBlock Text="{Binding Game.Character.Level, StringFormat=Niveau {0}}"
+                               FontSize="18"
+                               HorizontalAlignment="Center"
+                               Margin="0 0 0 10" />
+                    <Image Source="{Binding Game.Character.SkinUrl, 
+                                            Mode=OneWay, 
+                                            IsAsync=True,
+                                            Converter={StaticResource NulImageConverter}}"
+                           Width="150"
+                           Height="300" />
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Column="1"
+                            Margin="10" VerticalAlignment="Center" >
+
+                    <GroupBox Header="{_:Lang 252}" FontSize="16">
+                        <ItemsControl>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/heart.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 253}" Margin="4 -1 0 0" />
+                                <TextBlock HorizontalAlignment="Right">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}/{1}">
+                                            <Binding Path="Game.Character.Stats.LifePoints" />
+                                            <Binding Path="Game.Character.Stats.MaxLifePoints" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/starYellow.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 254}" Margin="4 -1 0 0" />
+                                <TextBlock Text="{Binding Game.Character.Stats.ActionPoints.Total}" 
+                                           HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/movement.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 255}" Margin="4 -1 0 0" />
+                                <TextBlock Text="{Binding Game.Character.Stats.MouvementPoints.Total}" 
+                                           HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/initiative.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 256}" Margin="4 -1 0 0" />
+                                <TextBlock Text="{Binding Game.Character.Stats.Initiative.Total}" 
+                                           HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/prospecting.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 257}" Margin="4 -1 0 0" />
+                                <TextBlock Text="{Binding Game.Character.Stats.Prospecting.Total}" 
+                                           HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/range.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 258}" Margin="4 -1 0 0" />
+                                <TextBlock Text="{Binding Game.Character.Stats.Range.Total}" 
+                                           HorizontalAlignment="Right"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/summon.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 259}" Margin="4 -1 0 0" />
+                                <TextBlock Text="{Binding Game.Character.Stats.SummonableCreaturesBoost.Total}" 
+                                           HorizontalAlignment="Right"/>
+                            </DockPanel>
+                        </ItemsControl>
+                    </GroupBox>
+
+                    <GroupBox Header="{_:Lang 251}" FontSize="16">
+                        <ItemsControl>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/vitality.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 230}" Margin="4 -1 0 0" />
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 -4 0">
+                                    <TextBlock Text="{Binding Game.Character.Stats.Vitality.Total}"
+                                           HorizontalAlignment="Right"/>
+                                    <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                            Width="24" Height="24" Tag="11"
+                                            Click="BtnBoostStat_Click"
+                                            HorizontalAlignment="Right">
+                                        <iconPacks:PackIconMaterial Kind="Plus" Width="8" />
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/wisdom.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 231}" Margin="4 -1 0 0" />
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 -4 0">
+                                    <TextBlock Text="{Binding Game.Character.Stats.Wisdom.Total}"
+                                           HorizontalAlignment="Right"/>
+                                    <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                            Width="24" Height="24" Tag="12"
+                                            Click="BtnBoostStat_Click"
+                                            HorizontalAlignment="Right">
+                                        <iconPacks:PackIconMaterial Kind="Plus" Width="8" />
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/strength.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 229}" Margin="4 -1 0 0" />
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 -4 0">
+                                    <TextBlock Text="{Binding Game.Character.Stats.Strength.Total}"
+                                           HorizontalAlignment="Right"/>
+                                    <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                            Width="24" Height="24" Tag="10"
+                                            Click="BtnBoostStat_Click"
+                                            HorizontalAlignment="Right">
+                                        <iconPacks:PackIconMaterial Kind="Plus" Width="8" />
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/intelligence.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 228}" Margin="4 -1 0 0" />
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 -4 0">
+                                    <TextBlock Text="{Binding Game.Character.Stats.Intelligence.Total}"
+                                           HorizontalAlignment="Right"/>
+                                    <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                            Width="24" Height="24" Tag="15"
+                                            Click="BtnBoostStat_Click"
+                                            HorizontalAlignment="Right">
+                                        <iconPacks:PackIconMaterial Kind="Plus" Width="8" />
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/chance.png" Width="16" Height="16" />
+                                <TextBlock Text="{_:Lang 227}" Margin="4 -1 0 0" />
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 -4 0">
+                                    <TextBlock Text="{Binding Game.Character.Stats.Chance.Total}"
+                                           HorizontalAlignment="Right"/>
+                                    <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                            Width="24" Height="24" Tag="13"
+                                            Click="BtnBoostStat_Click"
+                                            HorizontalAlignment="Right">
+                                        <iconPacks:PackIconMaterial Kind="Plus" Width="8" />
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel>
+                                <Image Source="/Mercy Bot;component/Resources/agility.png" 
+                                       Width="16" Height="16"
+                                        HorizontalAlignment="Left"/>
+                                <TextBlock Text="{_:Lang 226}" Margin="4 -1 0 0" HorizontalAlignment="Left" />
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 -4 0">
+                                    <TextBlock Text="{Binding Game.Character.Stats.Agility.Total}" 
+                                               HorizontalAlignment="Right"/>
+                                    <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                                            Width="24" Height="24" Tag="14"
+                                            Click="BtnBoostStat_Click"
+                                            HorizontalAlignment="Right">
+                                        <iconPacks:PackIconMaterial Kind="Plus" Width="8" />
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                        </ItemsControl>
+                    </GroupBox>
+
+                    <DockPanel Margin="6 0 6 0">
+                        <TextBlock Text="{_:Lang 462}" FontSize="17" />
+                        <TextBlock HorizontalAlignment="Right"
+                                   Text="{Binding Game.Character.Stats.StatsPoints}" 
+                                   FontSize="17"  />
+                    </DockPanel>
+                    
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        
+        <!-- Spells -->
+        <TabItem Style="{StaticResource TabItemLowerFontSize}">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Margin="-4 2 0 0" Kind="AutoFix" />
+                        <TextBlock Margin="4 0 0 0" Text="{_:Lang 261}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+
+            <StackPanel>
+                <TextBlock Text="{Binding Game.Character.Stats.SpellsPoints, StringFormat=Points: {0}}"
+                           FontSize="15"
+                           HorizontalAlignment="Right"
+                           Margin="0 2 0 6" />
+                <ListView ItemsSource="{Binding Game.Character.Spells}" 
+                          FontSize="12"
+                          Height="418">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="40">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding IconUrl, IsAsync=True, Mode=OneWay}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="{_:Lang 325}" Width="60" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="{_:Lang 326}" Width="504" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Level}" Header="{_:Lang 262}" Width="80" />
+                            <GridViewColumn Header="{_:Lang 263}" Width="90">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{_:Lang 263}" Margin="0 2 0 2" Click="BtnUpSpell_Click" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </TabItem>
+        
+        <!-- Jobs -->
+        <TabItem Style="{StaticResource TabItemLowerFontSize}">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Margin="-4 2 0 0" Kind="Shovel" />
+                        <TextBlock Margin="2 0 0 0" Text="{_:Lang 264}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+
+            <ListView ItemsSource="{Binding Game.Character.Jobs.Jobs}" 
+                          FontSize="12"
+                          Height="418">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding IconUrl, IsAsync=True, Mode=OneWay}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Id}" 
+                                        Header="{_:Lang 325}" 
+                                        Width="80" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" 
+                                        Header="{_:Lang 326}" 
+                                        Width="430" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Level}" 
+                                        Header="{_:Lang 262}" 
+                                        Width="80" />
+                        <GridViewColumn
+                                        Header="{_:Lang 265}" 
+                                        Width="140">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <mah:MetroProgressBar Value="{Binding ExperiencePercent, Mode=OneWay}"
+                                                              Height="14" />
+                                        <TextBlock Text="{Binding ExperiencePercent, StringFormat={}{0}%}"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </TabItem>
+
+    </TabControl>
+    
+</UserControl>

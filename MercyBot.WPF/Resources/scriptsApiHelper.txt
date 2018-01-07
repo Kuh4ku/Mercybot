@@ -1,0 +1,273 @@
+-- Fight
+canFight = api.Fight.CanFight
+function fight(forbiddenMonsters, mandatoryMonsters, minMonsters, maxMonsters, minMonstersLevel, maxMonstersLevel)
+	if api.Fight.Fight(forbiddenMonsters, mandatoryMonsters, minMonsters, maxMonsters, minMonstersLevel, maxMonstersLevel) then
+		coroutine.yield()
+	end	
+end
+
+-- Gather
+canGather = api.Gather.CanGather
+function gather(ressourcesids)
+	if api.Gather.Gather(ressourcesIds) then
+		coroutine.yield()
+	end
+end
+
+-- Global
+function delay(ms)
+	delayFunc(ms)
+	coroutine.yield()
+end
+function leaveDialog()
+	if leaveDialogFunc() then
+		coroutine.yield()
+	end
+end
+
+-- Inventory
+inventory = {
+	pods = api.Inventory.Pods,
+	podsMax = api.Inventory.PodsMax,
+	podsP = api.Inventory.PodsP,
+	itemCount = api.Inventory.ItemCount,
+	itemWeight = api.Inventory.itemWeight,
+	useItem = function(gid, qty)
+			      if api.Inventory.UseItem(gid, qty) then
+			          coroutine.yield()
+			      end
+			  end,
+	equipItem = function(gid)
+					if api.Inventory.EquipItem(gid) then
+						coroutine.yield()
+					end
+				end,
+	unEquipItem = function(gid)
+				      if api.Inventory.UnEquipItem(gid) then
+				      	  coroutine.yield()
+				      end
+				  end,
+	dropItem = function(gid, qty)
+				   if api.Inventory.DropItem(gid, qty) then
+				       coroutine.yield()
+				   end
+			   end,
+	deleteItem = function(gid, qty)
+					 if api.Inventory.DeleteItem(gid, qty) then
+					     coroutine.yield()
+					 end
+				 end
+}
+
+-- Map
+function changeMap(where)
+	if api.Map.ChangeMap(where) then
+		coroutine.yield()
+	end
+end
+function moveToCell(cellId)
+	if api.Map.MoveToCell(cellId) then
+		coroutine.yield()
+	end
+end
+function useById(elementId, skillInstanceUid)
+	if api.Map.UseById(elementId, skillInstanceUid) then
+		coroutine.yield()
+	end
+end
+function use(elementCellid, skillInstanceUid)
+	if api.Map.Use(elementCellid, skillInstanceUid) then
+		coroutine.yield()
+	end
+end
+function useLockedHouse(doorCellId, lockCode)
+	if api.Map.UseLockedHouse(doorCellId, lockCode) then
+		coroutine.yield()
+	end
+end
+function useLockedStorage(elementCellId, lockCode)
+	if api.Map.UseLockedStorage(elementCellId, lockCode) then
+		coroutine.yield()
+	end
+end
+function useZaap(destinationMapId)
+	if api.Map.UseZaap(destinationMapId) then
+		coroutine.yield()
+	end
+end
+function useZaapi(destinationMapId)
+	if api.Map.UseZaapi(destinationMapId) then
+		coroutine.yield()
+	end
+end
+function saveZaap()
+	if api.Map.SaveZaap() then
+		coroutine.yield()
+	end
+end
+function waitMapChange(delay)
+	api.Map.WaitMapChange(delay)
+	coroutine.yield()
+end
+function joinFriend(name)
+	api.Map.JoinFriend(name)
+	coroutine.yield()
+end
+onCell = api.Map.OnCell
+onMap = api.Map.OnMap
+currentPos = api.Map.CurrentPos
+currentMapId = api.Map.currentMapId
+area = api.Map.Area
+subArea = api.Map.SubArea
+
+-- Npc
+npc = {
+	npcBank = function(npcId, replyId)
+  			      if api.Npc.NpcBank(npcId, replyId) then
+  			          coroutine.yield()
+  			      end
+			  end,
+	npc = function(npcId, actionIndex)
+		      if api.Npc.Npc(npcId, actionIndex) then
+ 			      coroutine.yield()
+		      end
+		  end,
+	reply = function(replyId)
+				api.Npc.Reply(replyId)
+				coroutine.yield()
+			end
+}
+
+-- Mount
+mount = {
+	isRiding = api.Mount.IsRiding,
+	hasMount = api.Mount.HasMount,
+	currentRatio = api.Mount.CurrentRatio,
+	toggleRiding = function()
+					   if api.Mount.ToggleRiding() then
+					   	   coroutine.yield()
+					   end
+				   end,
+	setRatio = function(ratio)
+				   if api.Mount.SetRatio(ratio) then
+				   	   coroutine.yield()
+				   end
+			   end
+}
+
+-- Storage
+storage = {
+	itemCount = api.Storage.ItemCount,
+	kamas = api.Storage.Kamas,
+	putItem = function(gid, quantity)
+			      if api.Storage.PutItem(gid, quantity) then
+			      	   coroutine.yield()
+			      end
+			  end,
+	getItem = function(gid, quantity)
+			      if api.Storage.GetItem(gid, quantity) then
+                      coroutine.yield()
+			      end
+	          end,
+	putKamas = function(quantity)
+                   if api.Storage.PutKamas(quantity) then
+                   	   coroutine.yield()
+                   end
+	           end,
+	getKamas = function(quantity)
+                   if api.Storage.GetKamas(quantity) then
+  				       coroutine.yield()
+                   end
+	           end,
+	putAllItems = function()
+                      if api.Storage.PutAllItems() then
+                      	   coroutine.yield()
+                      end
+	              end,
+	getAllItems = function()
+				      if api.Storage.GetAllItems() then
+				      	   coroutine.yield()
+				      end
+				  end,
+	putExistingItems = function()
+					       if api.Storage.PutExistingItems() then
+					       	   coroutine.yield()
+					       end
+	                   end,
+	getExistingItems = function()
+						   if api.Storage.GetExistingItems() then
+						   	   coroutine.yield()
+						   end
+					   end
+}
+
+-- Exchange
+exchange = {
+	weightP = api.Exchange.WeightP,
+	targetWeightP = api.Exchange.TargetWeightP,
+	startExchange = function(playerId)
+                       api.Exchange.StartExchange(playerId)
+                       coroutine.yield()
+	                end,
+	sendReady = function()
+                    api.Exchange.SendReady()
+                    coroutine.yield()
+	            end,
+	putItem = function(gid, qty)
+                  api.Exchange.PutItem(gid, qty)
+                  coroutine.yield()
+	          end,
+	removeItem = function(gid, qty)
+                     api.Exchange.RemoveItem(gid, qty)
+                     coroutine.yield()
+	             end,
+	putKamas = function(qty)
+                   api.Exchange.PutKamas(qty)
+                   coroutine.yield()
+	           end,
+	removeKamas = function(qty)
+				      api.Exchange.RemoveKamas(qty)
+				      coroutine.yield()
+	              end,
+	putAllItems = function()
+				      api.Exchange.PutAllItems()
+				      coroutine.yield()
+	              end
+}
+
+-- Bid
+bid = {
+	startBuying = function()
+				      if api.Bid.StartBuying() then
+				      	   coroutine.yield()
+				      end
+				  end,
+	getItemPrice = api.Bid.GetItemPrice,
+	buyItem = function(gid, lot)
+			      if api.Bid.BuyItem(gid, lot) then
+			      	   coroutine.yield()
+			      end
+			  end,
+	startSelling = function()
+	  				   if api.Bid.StartSelling() then
+	  				   	   coroutine.yield()
+	  				   end
+	  			   end,
+	itemsInSaleCount = api.Bid.ItemsInSaleCount,
+	getItemsInSale = api.Bid.GetItemsInSale,
+	sellItem = function(gid, lot, price)
+				   if api.Bid.SellItem(gid, lot, price) then
+				   	   coroutine.yield()
+				   end
+			   end,
+	editItemInSalePrice = function(uid, newPrice)
+						      if api.Bid.EditItemInSalePrice(uid, newPrice) then
+						      	   coroutine.yield()
+						      end
+						  end,
+    removeItemInSale = function(uid)
+					          if api.Bid.RemoveItemInSale(uid) then
+					        	   coroutine.yield()
+					          end
+					      end
+}

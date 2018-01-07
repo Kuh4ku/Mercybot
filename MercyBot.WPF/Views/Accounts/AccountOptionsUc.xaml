@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="MercyBot.Views.Accounts.AccountOptionsUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+             xmlns:local="clr-namespace:MercyBot.Views.Accounts"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:specific="clr-namespace:MercyBot.Converters.Specific"
+             mc:Ignorable="d"
+             Height="484" 
+             Width="798"
+             FontSize="12">
+
+    <UserControl.Resources>
+        
+        <!-- Converters -->
+        <specific:BoostableStatsToIndexConverter x:Key="BoostableStatsToIndexConverter" />
+        <specific:IsSubscribedEnabilityConverter x:Key="IsSubscribedEnabilityConverter" />
+
+    </UserControl.Resources>
+    
+    <ScrollViewer Height="484">
+        <StackPanel>
+
+            <!-- Automatic boosting -->
+            <GroupBox Header="{_:Lang 364}">
+                <StackPanel>
+                    <DockPanel Margin="4">
+                        <TextBlock Text="{_:Lang 371}" VerticalAlignment="Center" />
+                        <ComboBox SelectedIndex="{Binding Configuration.StatToBoost, Converter={StaticResource BoostableStatsToIndexConverter}}">
+                            <ComboBoxItem Content="{_:Lang 463}" />
+                            <ComboBoxItem Content="{_:Lang 229}" />
+                            <ComboBoxItem Content="{_:Lang 230}" />
+                            <ComboBoxItem Content="{_:Lang 231}" />
+                            <ComboBoxItem Content="{_:Lang 227}" />
+                            <ComboBoxItem Content="{_:Lang 226}" />
+                            <ComboBoxItem Content="{_:Lang 228}" />
+                        </ComboBox>
+                    </DockPanel>
+                    <GroupBox Header="{_:Lang 466}">
+                        <DockPanel Margin="4">
+                            <ListView ItemsSource="{Binding Configuration.SpellsToBoost}"
+                                      Name="lvSpellsToBoost"
+                                      Width="410" Height="120" >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Id" 
+                                                        Width="50"
+                                                        DisplayMemberBinding="{Binding Id}" />
+                                        <GridViewColumn Header="{_:Lang 326}" 
+                                                        Width="200"
+                                                        DisplayMemberBinding="{Binding Name}" />
+                                        <GridViewColumn Header="{_:Lang 467}" 
+                                                        DisplayMemberBinding="{Binding Level}"
+                                                        Width="140" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <StackPanel VerticalAlignment="Center">
+                                <DockPanel Margin="20 4 4 4">
+                                    <TextBlock Text="{_:Lang 468}" VerticalAlignment="Center" />
+                                    <Controls:NumericUpDown Name="nudSpellId" Minimum="1" Value="1" Maximum="2000" />
+                                </DockPanel>
+                                <DockPanel Margin="20 4 4 4">
+                                    <TextBlock Text="{_:Lang 469}" VerticalAlignment="Center" />
+                                    <Controls:NumericUpDown Name="nudSpellLevel" Minimum="2" Value="5" Maximum="6" />
+                                </DockPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Width="110" Height="32"
+                                            Content="{_:Lang 239}"
+                                            Click="BtnDeleteSpellToBoost_Click"
+                                            Margin="0 6 4 4" />
+                                    <Button Width="100" Height="32"
+                                            Background="{StaticResource AccentColorBrush}"
+                                            Click="BtnAddSpellToBoost_Click"
+                                            Margin="4 6 4 4">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <iconPacks:PackIconMaterial Kind="Plus" />
+                                            <TextBlock Margin="10 0 0 0" Text="{_:Lang 260}" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+            
+            <!-- Exchanges -->
+            <GroupBox Header="{_:Lang 376}" 
+                      IsEnabled="{Binding Converter={StaticResource IsSubscribedEnabilityConverter}}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" 
+                                            Margin="0 4"
+                                            HorizontalAlignment="Center" >
+                        <iconPacks:PackIconMaterial Width="18" 
+                                                Height="18"
+                                                Kind="Information"
+                                                VerticalAlignment="Center" />
+                        <TextBlock Margin="4 0 0 0" 
+                               Text="{_:Lang 377}"
+                               VerticalAlignment="Center" />
+                    </StackPanel>
+                    <GroupBox Header="{_:Lang 378}">
+                        <DockPanel Margin="4">
+                            <ListBox ItemsSource="{Binding Configuration.AuthorizedTradesFrom}"
+                                     Name="lbAuthorizedTradesFrom"
+                                     Height="100" Width="340"
+                                     Margin="0 0 6 0" 
+                                     BorderThickness="0.5"/>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" 
+                                            Margin="0 4"
+                                            HorizontalAlignment="Center" >
+                                    <iconPacks:PackIconMaterial Width="18" 
+                                                Height="18"
+                                                Kind="Information"
+                                                VerticalAlignment="Center" />
+                                    <TextBlock Margin="4 0 0 0"
+                                               Width="365"
+                                               TextWrapping="Wrap"
+                                               Text="{_:Lang 379}"
+                                               VerticalAlignment="Center" />        
+                                </StackPanel>
+                                <DockPanel Margin="20 4 4 4">
+                                    <TextBlock Text="{_:Lang 380}" VerticalAlignment="Center" />
+                                    <Controls:NumericUpDown Name="nudCharacterId" Minimum="1" Value="1" />
+                                </DockPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Width="110" Height="32"
+                                            Content="{_:Lang 239}"
+                                            Click="BtnDeleteAuthorizedTradeFrom_Click"
+                                            Margin="0 6 4 4" />
+                                    <Button Width="100" Height="32"
+                                            Background="{StaticResource AccentColorBrush}"
+                                            Name="btnAddAuthorizedTradeFrom"
+                                            Click="BtnAddAuthorizedTradeFrom_Click"
+                                            Margin="4 6 4 4">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <iconPacks:PackIconMaterial Kind="Plus" />
+                                            <TextBlock Margin="10 0 0 0" Text="{_:Lang 260}" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </GroupBox>
+                    <CheckBox Content="{_:Lang 381}" 
+                              Margin="4" IsChecked="{Binding Configuration.IgnoreNonAuthorizedTrades}" />
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Others -->
+            <GroupBox Header="{_:Lang 365}">
+                <StackPanel>
+                    <CheckBox Content="{_:Lang 363}" 
+                              IsChecked="{Binding Configuration.AutoRegenAccepted}"
+                              Margin="4" />
+                    <CheckBox Content="{_:Lang 366}" 
+                              IsChecked="{Binding Configuration.AcceptAchievements}"
+                              Margin="4" />
+                    <CheckBox Content="{_:Lang 533}" 
+                              IsChecked="{Binding Configuration.DisconnectUponFightsLimit}"
+                              Margin="4" />
+                    <CheckBox Content="{_:Lang 571}" 
+                              IsChecked="{Binding Configuration.AutoMount}"
+                              Margin="4" />
+                </StackPanel>
+            </GroupBox>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

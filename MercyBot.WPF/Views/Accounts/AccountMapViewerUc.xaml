@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="MercyBot.Views.Accounts.AccountMapViewerUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MercyBot.Views.Accounts"
+             xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+             mc:Ignorable="d" 
+             Height="484"  
+             Width="798"
+             FontSize="11">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <StackPanel Width="120"
+                        Height="150"
+                        Margin="0 20 0 14">
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 6">
+                    <Ellipse Fill="Blue" Width="20" Height="20" />
+                    <TextBlock Text="{_:Lang 331}" 
+                               VerticalAlignment="Center"
+                               Margin="4 0 0 0"
+                               Foreground="White" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 6">
+                    <Ellipse Fill="#8b0000" Width="20" Height="20" />
+                    <TextBlock Text="{_:Lang 332}" 
+                               VerticalAlignment="Center"
+                               Margin="4 0 0 0"
+                               Foreground="White" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 6">
+                    <Ellipse Fill="#5171ca" Width="20" Height="20" />
+                    <TextBlock Text="{_:Lang 333}" 
+                               VerticalAlignment="Center"
+                               Margin="4 0 0 0"
+                               Foreground="White" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 6">
+                    <Rectangle Fill="#964b0d" Width="20" Height="20" />
+                    <TextBlock Text="{_:Lang 334}" 
+                               VerticalAlignment="Center"
+                               Margin="4 0 0 0"
+                               Foreground="White" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 6">
+                    <Rectangle Fill="#018f8c" Width="20" Height="20" />
+                    <TextBlock Text="{_:Lang 128}"
+                               VerticalAlignment="Center"
+                               Margin="4 0 0 0"
+                               Foreground="White" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 6">
+                    <Ellipse Fill="#b378d3" Width="20" Height="20" />
+                    <TextBlock Text="{_:Lang 335}" 
+                               VerticalAlignment="Center"
+                               Margin="4 0 0 0"
+                               Foreground="White" />
+                </StackPanel>
+            </StackPanel>
+            <CheckBox Content="{_:Lang 336}"
+                      Margin="20 0"
+                      IsChecked="{Binding ShowCellIds,
+                                          ElementName=mapViewer}" />
+        </StackPanel>
+        
+        <local:MapViewerUc x:Name="mapViewer"
+                           DataContext="{Binding}" 
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           Margin="0 0 10 0"/>
+    </Grid>
+</UserControl>

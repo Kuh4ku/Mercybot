@@ -1,0 +1,155 @@
+﻿<UserControl x:Class="MercyBot.Views.Accounts.AccountConsoleUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:enums="clr-namespace:MercyBot.Converters.Enums"
+             xmlns:_="clr-namespace:MercyBot.Configurations.Language"
+             mc:Ignorable="d" 
+             Height="484" 
+             Width="798">
+
+    <UserControl.Resources>
+        
+        <!-- Converters -->
+        <enums:PlayerStatusEnumImageConverter x:Key="PlayerStatusEnumImageConverter" />
+
+    </UserControl.Resources>
+    
+    <StackPanel>
+        
+        <!-- Logs -->
+        <ScrollViewer Height="448">
+            <ItemsControl ItemsSource="{Binding Logger.Logs}"
+                          Name="IsLogs"
+                          FontSize="13"
+                          Padding="4 2 4 6">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Foreground="{Binding Color}" 
+                           Text="{Binding}"
+                           TextWrapping="Wrap"
+                           Width="779" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Commands -->
+        <StackPanel Orientation="Horizontal"
+                    Margin="0 4 0 0">
+            <TextBox Name="TxtCommand" 
+                     Width="680" 
+                     BorderThickness="0.5"
+                     KeyDown="TxtCommand_KeyDown" />
+            <Button Name="BtnClearLogs" 
+                    ToolTip="{_:Lang 6}"
+                    Height="26"
+                    BorderThickness="0"
+                    Background="Transparent"
+                    Margin="2 0 0 0" 
+                    Click="BtnClearLogs_Click">
+                <iconPacks:PackIconMaterial Width="12" Height="12" Kind="Delete" />
+            </Button>
+            <Button Name="BtnCopyLogs" 
+                    ToolTip="{_:Lang 7}"
+                    Height="26" 
+                    BorderThickness="0"
+                    Background="Transparent"
+                    Margin="2 0 0 0" 
+                    Click="BtnCopyLogs_Click">
+                <iconPacks:PackIconMaterial Width="12" Height="12" Kind="ClipboardOutline" />
+            </Button>
+            <Button Name="BtnReportBug" 
+                    ToolTip="{_:Lang 581}"
+                    Height="26"
+                    BorderThickness="0"
+                    Background="Transparent"
+                    Margin="2 0 0 0" 
+                    IsEnabled="{Binding Game.Character.IsSelected, Mode=OneWay}"
+                    Click="BtnReportBug_Click">
+                <iconPacks:PackIconMaterial Width="12" Height="12" Kind="Bug" />
+            </Button>
+            <Controls:DropDownButton ToolTip="{_:Lang 5}"
+                                     Margin="2 0 0 0"
+                                     ArrowVisibility="Collapsed"
+                                     Background="Transparent"
+                                     IsEnabled="{Binding Game.Character.IsSelected, Mode=OneWay}"
+                                     BorderThickness="0">
+                <Controls:DropDownButton.Icon>
+                    <iconPacks:PackIconMaterial Kind="Bullhorn" />
+                </Controls:DropDownButton.Icon>
+                <Controls:DropDownButton.Items>
+                    <CheckBox Margin="-20 0 0 0" 
+                              Foreground="#dceffc" 
+                              Content="{_:Lang 266}"
+                              IsChecked="{Binding Configuration.ShowGeneralMessages}" />
+                    <CheckBox Margin="-20 0 0 0" 
+                              Foreground="#008cf7" 
+                              Content="{_:Lang 222}"
+                              IsChecked="{Binding Configuration.ShowPartyMessages}" />
+                    <CheckBox Margin="-20 0 0 0" 
+                              Foreground="#bf6ff7" 
+                              Content="{_:Lang 220}"
+                              IsChecked="{Binding Configuration.ShowGuildMessages}" />
+                    <CheckBox Margin="-20 0 0 0" 
+                              Foreground="#ffe97a" 
+                              Content="{_:Lang 218}"
+                              IsChecked="{Binding Configuration.ShowAllianceMessages}" />
+                    <CheckBox Margin="-20 0 0 0" 
+                              Foreground="#ba7c50" 
+                              Content="{_:Lang 223}"
+                              IsChecked="{Binding Configuration.ShowSaleMessages}" />
+                    <CheckBox Margin="-20 0 0 0" 
+                              Foreground="#00ff88" 
+                              Content="{_:Lang 224}"
+                              IsChecked="{Binding Configuration.ShowSeekMessages}" />
+                    <CheckBox Margin="-20 0 0 0" 
+                              Foreground="#ff9245" 
+                              Content="{_:Lang 221}"
+                              IsChecked="{Binding Configuration.ShowNoobMessages}" />
+                </Controls:DropDownButton.Items>
+            </Controls:DropDownButton>
+            <Controls:DropDownButton ToolTip="{_:Lang 385}"
+                                     Margin="2 0 0 0"
+                                     ArrowVisibility="Collapsed"
+                                     Background="Transparent"
+                                     IsEnabled="{Binding Game.Character.IsSelected, Mode=OneWay}"
+                                     BorderThickness="0">
+                <Controls:DropDownButton.Icon>
+                    <Image Source="{Binding Game.Character.Status, Converter={StaticResource PlayerStatusEnumImageConverter}}"
+                           Width="14" Height="14" />
+                </Controls:DropDownButton.Icon>
+                <Controls:DropDownButton.Items>
+                    <MenuItem Header="{_:Lang 386}" Tag="10" Click="BtnChangeStatus_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Mercy Bot;component/Resources/circle_green.png"
+                                   Width="14" Height="14" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{_:Lang 387}" Tag="21" Click="BtnChangeStatus_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Mercy Bot;component/Resources/Clock-24.png"
+                                   Width="14" Height="14"  />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{_:Lang 388}" Tag="30" Click="BtnChangeStatus_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Mercy Bot;component/Resources/No-entry24.png"
+                                   Width="14" Height="14"  />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Solo" Tag="40" Click="BtnChangeStatus_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Mercy Bot;component/Resources/circle-cross-24.png"
+                                   Width="14" Height="14"  />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </Controls:DropDownButton.Items>
+            </Controls:DropDownButton>
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>
